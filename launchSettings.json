@@ -1,0 +1,13 @@
+{
+  "profiles": {
+    "Docker Compose": {
+      "commandName": "DockerCompose",
+      "commandVersion": "1.0",
+      "serviceActions": {
+        "films.application": "StartDebugging",
+        "identity.application": "StartDebugging",
+        "rating.application": "StartDebugging"
+      }
+    }
+  }
+}

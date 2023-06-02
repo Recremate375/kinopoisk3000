@@ -1,0 +1,22 @@
+version: '3.4'
+
+services:
+  films.application:
+    image: ${DOCKER_REGISTRY-}filmsapplication
+    build:
+      context: .
+      dockerfile: src/Services/Films/Films.Application/Dockerfile
+
+  identity.application:
+    image: ${DOCKER_REGISTRY-}identityapplication
+    build:
+      context: .
+      dockerfile: src/Services/Identity/Identity.Application/Dockerfile
+
+
+  rating.application:
+    image: ${DOCKER_REGISTRY-}ratingapplication
+    build:
+      context: .
+      dockerfile: src/Services/Rating/Rating.Application/Dockerfile
+

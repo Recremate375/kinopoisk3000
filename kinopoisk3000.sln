@@ -9,29 +9,35 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{81
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Identity", "Identity", "{A3697924-AC34-44A2-8F0E-BD4FCB83A9D1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity.Application", "src\Services\Identity\Identity.Application\Identity.Application.csproj", "{0D06CD9A-D1EC-481F-8D94-727C2C1B7C1F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Identity.Application", "src\Services\Identity\Identity.Application\Identity.Application.csproj", "{0D06CD9A-D1EC-481F-8D94-727C2C1B7C1F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity.Domain", "src\Services\Identity\Identity.Domain\Identity.Domain.csproj", "{EEFC6667-B465-4915-A95C-AFEEDBEA8499}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Identity.Domain", "src\Services\Identity\Identity.Domain\Identity.Domain.csproj", "{EEFC6667-B465-4915-A95C-AFEEDBEA8499}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity.Tests", "src\Services\Identity\Identity.Tests\Identity.Tests.csproj", "{AD4B8675-2543-4E7D-9DFD-03EE8D8D65E5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Identity.Tests", "src\Services\Identity\Identity.Tests\Identity.Tests.csproj", "{AD4B8675-2543-4E7D-9DFD-03EE8D8D65E5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity.Infrastructure", "src\Services\Identity\Identity.Infrastructure\Identity.Infrastructure.csproj", "{4A36C50C-0D34-499B-93DB-9D6D4D69A6D1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Identity.Infrastructure", "src\Services\Identity\Identity.Infrastructure\Identity.Infrastructure.csproj", "{4A36C50C-0D34-499B-93DB-9D6D4D69A6D1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Rating", "Rating", "{5F288342-8665-491E-AA4F-C96C9F928FE6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Films", "Films", "{B82D4BB7-DD78-42DB-BE2F-9B2070F9A055}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rating.Application", "src\Services\Rating\Rating.Application\Rating.Application.csproj", "{408697CD-86EF-4477-9932-22856F235766}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rating.Application", "src\Services\Rating\Rating.Application\Rating.Application.csproj", "{408697CD-86EF-4477-9932-22856F235766}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rating.Domain", "src\Services\Rating\Rating.Domain\Rating.Domain.csproj", "{ED3BCB7E-1CC5-4D3C-A559-1298C61CBC19}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rating.Domain", "src\Services\Rating\Rating.Domain\Rating.Domain.csproj", "{ED3BCB7E-1CC5-4D3C-A559-1298C61CBC19}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rating.Infrastructure", "src\Services\Rating\Rating.Infrastructure\Rating.Infrastructure.csproj", "{B1B1E312-65CD-40A6-B511-18CA2EDBB864}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rating.Infrastructure", "src\Services\Rating\Rating.Infrastructure\Rating.Infrastructure.csproj", "{B1B1E312-65CD-40A6-B511-18CA2EDBB864}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rating.Tests", "src\Services\Rating\Rating.Tests\Rating.Tests.csproj", "{40614D98-6FD3-495C-B622-C1480C98E8E8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rating.Tests", "src\Services\Rating\Rating.Tests\Rating.Tests.csproj", "{40614D98-6FD3-495C-B622-C1480C98E8E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Films.Tests", "src\Services\Films\Films.Tests\Films.Tests.csproj", "{2D61AA4C-1662-4827-A58A-FB895C528F44}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Films.Tests", "src\Services\Films\Films.Tests\Films.Tests.csproj", "{2D61AA4C-1662-4827-A58A-FB895C528F44}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Films.Application", "src\Services\Films\Films.Application\Films.Application.csproj", "{9398E3D4-2DC7-464E-8D82-F31F2E8B6D3E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Films.Application", "src\Services\Films\Films.Application\Films.Application.csproj", "{9398E3D4-2DC7-464E-8D82-F31F2E8B6D3E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Films.Domain", "src\Services\Films\Films.Domain\Films.Domain.csproj", "{08048C0C-8019-4B5A-AA8D-0F840BE7A274}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Films.Infrastructure", "src\Services\Films\Films.Infrastructure\Films.Infrastructure.csproj", "{B5569F8C-FF65-446A-AE2C-FFD8752ACB2B}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{4AA19244-0A43-4750-9C3C-C2BECA1A12E2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -79,6 +85,18 @@ Global
 		{9398E3D4-2DC7-464E-8D82-F31F2E8B6D3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9398E3D4-2DC7-464E-8D82-F31F2E8B6D3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9398E3D4-2DC7-464E-8D82-F31F2E8B6D3E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08048C0C-8019-4B5A-AA8D-0F840BE7A274}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08048C0C-8019-4B5A-AA8D-0F840BE7A274}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08048C0C-8019-4B5A-AA8D-0F840BE7A274}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08048C0C-8019-4B5A-AA8D-0F840BE7A274}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5569F8C-FF65-446A-AE2C-FFD8752ACB2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5569F8C-FF65-446A-AE2C-FFD8752ACB2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5569F8C-FF65-446A-AE2C-FFD8752ACB2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5569F8C-FF65-446A-AE2C-FFD8752ACB2B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4AA19244-0A43-4750-9C3C-C2BECA1A12E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4AA19244-0A43-4750-9C3C-C2BECA1A12E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4AA19244-0A43-4750-9C3C-C2BECA1A12E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4AA19244-0A43-4750-9C3C-C2BECA1A12E2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -98,6 +116,8 @@ Global
 		{40614D98-6FD3-495C-B622-C1480C98E8E8} = {5F288342-8665-491E-AA4F-C96C9F928FE6}
 		{2D61AA4C-1662-4827-A58A-FB895C528F44} = {B82D4BB7-DD78-42DB-BE2F-9B2070F9A055}
 		{9398E3D4-2DC7-464E-8D82-F31F2E8B6D3E} = {B82D4BB7-DD78-42DB-BE2F-9B2070F9A055}
+		{08048C0C-8019-4B5A-AA8D-0F840BE7A274} = {B82D4BB7-DD78-42DB-BE2F-9B2070F9A055}
+		{B5569F8C-FF65-446A-AE2C-FFD8752ACB2B} = {B82D4BB7-DD78-42DB-BE2F-9B2070F9A055}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DCE33C5F-6BD5-4886-808D-1225E96A0419}
