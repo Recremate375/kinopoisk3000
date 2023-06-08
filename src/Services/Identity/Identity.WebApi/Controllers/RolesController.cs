@@ -33,5 +33,23 @@ namespace Identity.WebApi.Controllers
 
 			return Ok(role);
 		}
+
+		[HttpPut]
+		public async Task<ActionResult<Role>> ChangeRole([FromBody] Role role)
+		{
+			roleRepository.Update(role);
+			await roleRepository.Save();
+
+			return Ok(role);
+		}
+
+		[HttpDelete]
+		public async Task<IActionResult> DeleteRole(int id)
+		{
+			roleRepository.Delete(id);
+			await roleRepository.Save();
+
+			return Ok();
+		}
 	}
 }

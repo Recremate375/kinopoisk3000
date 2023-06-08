@@ -15,7 +15,7 @@ namespace Identity.Application.Features
 	public class GenerateJWTClass
 	{
 		private string Issuer = "IdentityServer";
-		private string Audience = "IdentityServer";
+		private string Audience = "ResourceServer";
 		private string Secret = "MySuperMegaReallyGoodSecretKey";
 		private int TokenLifeTime = 3600;
 		private IRoleRepository roleRepository;

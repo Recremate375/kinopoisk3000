@@ -1,6 +1,7 @@
 ﻿using Identity.Application.Features;
 using Identity.Application.Repositories;
 using Identity.Domain.DTO;
+using Identity.Domain.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -17,6 +18,32 @@ namespace Identity.WebApi.Controllers
 		{
 			this.userRepository = userRepository;
 			this.roleRepository = roleRepository;
+		}
+
+		[HttpPost("login")]
+		public async Task<IActionResult> Login([FromBody] LoginUserDTO loginUserDTO)
+		{
+			var user = await userRepository.GetUserByEmail(loginUserDTO.Email);
+
+			try
+			{
+				if (user != null)
+				{
+					if (loginUserDTO.Password != user.Password)
+					{
+						return BadRequest("Incorrect Password");
+					}
+					GenerateJWTClass JWTtoken = new GenerateJWTClass(roleRepository);
+					var token = JWTtoken.GenerateJWT(user);
+
+					return Ok(new { Token = token });
+				}
+				return Unauthorized();
+			}
+			catch (Exception ex)
+			{
+				return BadRequest(ex.Message);
+			}
 		}
 
 		[HttpGet]
@@ -54,32 +81,24 @@ namespace Identity.WebApi.Controllers
 			return Created("GetUserById", createUserDTO);
 		}
 
-		[HttpPost("login")]
-		public async Task<IActionResult> Login([FromBody] LoginUserDTO loginUserDTO)
+		[HttpPut]
+		[Authorize(Roles="admin")]
+		public async Task<IActionResult> UpdateUser(User user)
 		{
-			var user = await userRepository.GetUserByEmail(loginUserDTO.Email);
+			userRepository.Update(user);
+			await userRepository.Save();
 
-			try
-			{
-				if (user != null)
-				{
-					if (loginUserDTO.Password != user.Password)
-					{
-						return BadRequest("Incorrect Password");
-					}
-					GenerateJWTClass JWTtoken = new GenerateJWTClass(roleRepository);
-					var token = JWTtoken.GenerateJWT(user);
-
-					return Ok(new { Token = token });
-				}
-			}
-			catch (Exception ex)
-			{
-				return BadRequest(ex.Message);
-			}
 			return Ok();
 		}
 
+		[HttpDelete]
+		[Authorize(Roles = "admin")]
+		public async Task<IActionResult> DeleteUser(int id)
+		{
+			userRepository.Delete(id);
+			await userRepository.Save();
 
+			return Ok();
+		}
 	}
 }
