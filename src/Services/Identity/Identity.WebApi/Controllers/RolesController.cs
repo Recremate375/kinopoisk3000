@@ -5,49 +5,69 @@ using Identity.Domain.Models;
 using Identity.Application.Repositories;
 using System.Formats.Asn1;
 using Microsoft.AspNetCore.Authorization;
+using AutoMapper;
+using System.Data;
 
 namespace Identity.WebApi.Controllers
 {
 	[Route("api/[controller]")]
 	[ApiController]
-	[Authorize(Roles = "admin")]
+
 	public class RolesController : ControllerBase
 	{
 		private readonly IRoleRepository roleRepository;
-		public RolesController(IRoleRepository roleRepository)
+		private readonly IMapper mapper;
+
+		public RolesController(IRoleRepository roleRepository, IMapper mapper)
 		{
 			this.roleRepository = roleRepository;
+			this.mapper = mapper;
 		}
 
 		[HttpGet]
+		[Authorize(Roles = "admin")]
 		public async Task<ActionResult<IEnumerable<Role>>> GetAllRoles()
 		{
-			return await roleRepository.GetAll();
+			var roles = await roleRepository.GetAllAsync();
+			var rolesDTO = mapper.Map<List<RoleDTO>>(roles);
+
+			return Ok(rolesDTO);
 		}
 
 		[HttpPost]
-		public async Task<ActionResult<Role>> AddNewRole([FromBody] Role role)
+		[Authorize(Roles = "admin")]
+		public async Task<ActionResult<Role>> AddNewRole([FromBody] RoleDTO roleDTO)
 		{
-			await roleRepository.Create(role);
-			await roleRepository.Save();
+			if(!ModelState.IsValid)
+			{
+				return StatusCode(StatusCodes.Status400BadRequest, ModelState);
+			}
 
-			return Ok(role);
+			var role = mapper.Map<Role>(roleDTO);
+
+			await roleRepository.CreateAsync(role);
+			await roleRepository.SaveAsync();
+
+			return Ok(roleDTO);
 		}
 
 		[HttpPut]
-		public async Task<ActionResult<Role>> ChangeRole([FromBody] Role role)
+		public async Task<ActionResult<Role>> ChangeRole([FromBody] RoleDTO roleDTO)
 		{
+			var role = mapper.Map<Role>(roleDTO);
+
 			roleRepository.Update(role);
-			await roleRepository.Save();
+			await roleRepository.SaveAsync();
 
 			return Ok(role);
 		}
 
 		[HttpDelete]
+		[Authorize(Roles = "admin")]
 		public async Task<IActionResult> DeleteRole(int id)
 		{
-			roleRepository.Delete(id);
-			await roleRepository.Save();
+			roleRepository.DeleteAsync(id);
+			await roleRepository.SaveAsync();
 
 			return Ok();
 		}

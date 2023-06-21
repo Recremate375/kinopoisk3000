@@ -3,87 +3,35 @@ using Identity.Domain.DTO;
 using Identity.Domain.Models;
 using Identity.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Identity.Client;
 
 namespace Identity.Infrastructure.Repositories
 {
-	public class UserRepository : IUserRepository
+	public class UserRepository : BaseRepository<User>, IUserRepository
 	{
 		private readonly IdentityDbContext _context;
 		private readonly IRoleRepository roleRepository;
-		public UserRepository(IdentityDbContext context, IRoleRepository roleRepository)
+
+		public UserRepository(IdentityDbContext context, IRoleRepository roleRepository) : base(context) 
 		{
 			_context = context;
 			this.roleRepository = roleRepository;
 		}
 
-		public async Task<User> GetUserByEmail(string email)
+		public async Task<User> GetUserByEmailAsync(string email)
 		{
 			var user = await _context.Users.Include(x => x.UserRole).FirstOrDefaultAsync(x => x.Email == email);
+
 			return user;
 		}
 
-		public async Task Create(CreateUserDTO entity)
+		public async Task CreateAsync(User entity)
 		{
-			User user = new User
-			{
-				Email = entity.Email,
-				Password = entity.Password,
-				Login = entity.Login,
-				Name = entity.Name,
-				Surname = entity.Surname,
-				UserRole = await roleRepository.GetRoleByName("admin")
-			};
+			var role = await roleRepository.GetRoleByNameAsync("user");
 
-			await _context.Users.AddAsync(user);
+			entity.UserRole = role;
+
+			await _context.Users.AddAsync(entity);
 		}
 
-		public async void Delete(int id)
-		{
-			User? user = await GetById(id);
-			if (user != null)
-			{
-				_context.Users.Remove(user);
-			}
-		}
-
-		private bool disposed = false;
-		public virtual void Dispose(bool disposing)
-		{
-			if (!this.disposed)
-			{
-				if (disposing)
-				{
-					_context.Dispose();
-				}
-			}
-
-			this.disposed = true;
-		}
-		public void Dispose()
-		{
-			Dispose(true);
-			GC.SuppressFinalize(this);
-		}
-
-		public async Task<List<User>> GetAll()
-		{
-			return await _context.Users.Include(x => x.UserRole).ToListAsync();
-		}
-
-		public async Task<User> GetById(int id)
-		{
-			return await _context.Users.FindAsync(id);
-		}
-
-		public async Task Save()
-		{
-			await _context.SaveChangesAsync();
-		}
-
-		public void Update(User entity)
-		{
-			_context.Entry(entity).State = EntityState.Modified;
-		}
 	}
 }

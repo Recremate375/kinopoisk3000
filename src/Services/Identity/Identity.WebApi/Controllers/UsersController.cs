@@ -1,10 +1,12 @@
-﻿using Identity.Application.Features;
+﻿using AutoMapper;
+using Identity.Application.Features;
 using Identity.Application.Repositories;
 using Identity.Domain.DTO;
 using Identity.Domain.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 
 namespace Identity.WebApi.Controllers
 {
@@ -14,79 +16,71 @@ namespace Identity.WebApi.Controllers
 	{
 		private readonly IUserRepository userRepository;
 		private readonly IRoleRepository roleRepository;
-		public UsersController(IUserRepository userRepository, IRoleRepository roleRepository)
+		private IOptions<AuthOptions> options;
+		private readonly IMapper mapper;
+
+		public UsersController(IUserRepository userRepository, IRoleRepository roleRepository, IMapper mapper)
 		{
 			this.userRepository = userRepository;
 			this.roleRepository = roleRepository;
+			this.mapper = mapper;
 		}
 
 		[HttpPost("login")]
+		[ProducesResponseType(StatusCodes.Status201Created)]
 		public async Task<IActionResult> Login([FromBody] LoginUserDTO loginUserDTO)
 		{
-			var user = await userRepository.GetUserByEmail(loginUserDTO.Email);
+			var user = await userRepository.GetUserByEmailAsync(loginUserDTO.Email);
 
-			try
-			{
-				if (user != null)
-				{
-					if (loginUserDTO.Password != user.Password)
-					{
-						return BadRequest("Incorrect Password");
-					}
-					GenerateJWTClass JWTtoken = new GenerateJWTClass(roleRepository);
-					var token = JWTtoken.GenerateJWT(user);
+			GenerateJWTClass JWTtoken = new GenerateJWTClass(roleRepository, options);
+			var token = JWTtoken.GenerateJWT(user);
 
-					return Ok(new { Token = token });
-				}
-				return Unauthorized();
-			}
-			catch (Exception ex)
-			{
-				return BadRequest(ex.Message);
-			}
+			return Ok(new { Token = token });
 		}
 
 		[HttpGet]
+		[ProducesResponseType(StatusCodes.Status200OK)]
+		[ProducesResponseType(StatusCodes.Status204NoContent)]
 		[Authorize(Roles = "admin")]
 		public async Task<ActionResult<IEnumerable<UserDTO>>> GetAllUsers()
 		{
-			var users = await userRepository.GetAll();
-			if (users == null)
-			{
-				return NoContent();
-			}
-			List<UserDTO> userDTOs = new List<UserDTO>();
-			foreach (var user in users)
-			{
-				UserDTO userDTO = new UserDTO()
-				{
-					Name = user.Name,
-					Email = user.Email,
-					Password = user.Password,
-					Login = user.Login,
-					Surname = user.Surname,
-					UserRole = user.UserRole
-				};
-				userDTOs.Add(userDTO);
-			}
+			var users = await userRepository.GetAllAsync();
+			var userDTOs = mapper.Map<List<UserDTO>>(users);
+
 			return Ok(userDTOs);
 		}
 
 		[HttpPost]
+		[ProducesResponseType(StatusCodes.Status201Created)]
 		public async Task<ActionResult<CreateUserDTO>> Register([FromBody] CreateUserDTO createUserDTO)
 		{
-			await userRepository.Create(createUserDTO);
-			await userRepository.Save();
+			if (!ModelState.IsValid)
+			{
+				return StatusCode(StatusCodes.Status400BadRequest, ModelState);
+			}
 
-			return Created("GetUserById", createUserDTO);
+			var user = mapper.Map<User>(createUserDTO);
+
+			await userRepository.CreateAsync(user);
+			await userRepository.SaveAsync();
+
+			return CreatedAtAction("GetUserById", createUserDTO);
 		}
 
 		[HttpPut]
+		[ProducesResponseType(StatusCodes.Status200OK)]
 		[Authorize(Roles="admin")]
-		public async Task<IActionResult> UpdateUser(User user)
+		public async Task<IActionResult> UpdateUser(UserDTO userDTO)
 		{
+			if (!ModelState.IsValid)
+			{
+				return StatusCode(StatusCodes.Status400BadRequest, ModelState);
+			}
+
+			var user = mapper.Map<User>(userDTO);
+
 			userRepository.Update(user);
-			await userRepository.Save();
+			await userRepository.SaveAsync();
 
 			return Ok();
 		}
@@ -95,8 +89,8 @@ namespace Identity.WebApi.Controllers
 		[Authorize(Roles = "admin")]
 		public async Task<IActionResult> DeleteUser(int id)
 		{
-			userRepository.Delete(id);
-			await userRepository.Save();
+			userRepository.DeleteAsync(id);
+			await userRepository.SaveAsync();
 
 			return Ok();
 		}

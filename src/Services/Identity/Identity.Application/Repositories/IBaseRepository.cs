@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace Identity.Application.Repositories
 {
-	public interface IBaseRepository<T> : IDisposable where T : class
+	public interface IBaseRepository<T> where T : class
 	{
-		Task<List<T>> GetAll();
-		Task<T> GetById(int id);
+		Task<List<T>> GetAllAsync();
+		Task<T> GetByIdAsync(int id);
 		void Update(T entity);
-		void Delete(int id);
-		Task Save();
+		void DeleteAsync(int id);
+		Task SaveAsync();
 	}
 }

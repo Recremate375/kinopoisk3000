@@ -9,7 +9,7 @@ namespace Identity.Application.Repositories
 {
 	public interface IRoleRepository : IBaseRepository<Role>
 	{
-		Task<Role> GetRoleByName(string roleName);
-		Task Create(Role role);
+		Task<Role> GetRoleByNameAsync(string roleName);
+		Task CreateAsync(Role role);
 	}
 }

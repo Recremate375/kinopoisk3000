@@ -1,40 +1,23 @@
-using Identity.Application.Repositories;
-using Identity.Infrastructure.Context;
-using Identity.Infrastructure.Repositories;
-using Microsoft.EntityFrameworkCore;
+using Identity.WebApi.Middlewares;
+using Identity.WebApi.ExtensionsMethods;
+using FluentValidation.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-#region Configure MSSQL
+builder.Services.AddCustomAutoMapper();
+builder.Services.AddRepositories();
+builder.Services.AddMSSQLDbContext(builder.Configuration);
+builder.Services.AddJwtAuthentication(builder.Configuration);
+builder.Services.AddMyFluentValidation();
 
-builder.Services.AddDbContext<IdentityDbContext>(x => x.UseSqlServer(builder.Configuration.GetConnectionString("MSSQLConnection")));
-
-#endregion
-
-#region Add Repositories
-
-builder.Services.AddTransient<IRoleRepository, RoleRepository>();
-builder.Services.AddTransient<IUserRepository, UserRepository>();
-
-#endregion
-
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddFluentValidation();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddAuthentication().AddJwtBearer(options =>
-{
-	options.RequireHttpsMetadata = true;
-	options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
-	{
-		ValidateIssuer = true,
-		ValidateAudience = true,
-		ValidateLifetime = true,
-		ValidateIssuerSigningKey = true
-	};
-});
-
 var app = builder.Build();
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -43,10 +26,9 @@ if (app.Environment.IsDevelopment())
 	app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+app.UseCustomException();
 
-app.UseAuthentication();
-app.UseAuthorization();
+app.UseHttpsRedirection();
 
 app.MapControllers();
 
