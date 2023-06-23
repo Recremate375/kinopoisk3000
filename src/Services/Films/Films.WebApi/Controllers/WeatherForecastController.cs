@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace Films.Application.Controllers
+namespace Films.WebApi.Controllers
 {
 	[ApiController]
 	[Route("[controller]")]
