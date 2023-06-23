@@ -1,4 +1,6 @@
 ﻿using Films.Application.Repositories.Queryes;
+using Films.Infrastructure.Context;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,14 +11,23 @@ namespace Films.Infrastructure.Repositories.Queries
 {
 	public class BaseQueryRepository<T> : IBaseQueryRepository<T> where T : class
 	{
-		public Task<IReadOnlyList<T>> GetAllAsync()
+		private readonly FilmsDbContext context;
+		private readonly DbSet<T> dbSet;
+
+		public BaseQueryRepository(FilmsDbContext context)
 		{
-			throw new NotImplementedException();
+			this.context = context;
+			dbSet = context.Set<T>();
 		}
 
-		public Task<T> GetByIdAsync(int id)
+		public async Task<List<T>> GetAllAsync()
 		{
-			throw new NotImplementedException();
+			return await dbSet.AsNoTracking().ToListAsync();
+		}
+
+		public async Task<T> GetByIdAsync(int id)
+		{
+			return await dbSet.FindAsync(id);
 		}
 	}
 }

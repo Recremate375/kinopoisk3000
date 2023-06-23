@@ -23,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Films.Application\Films.Application.csproj" />
     <ProjectReference Include="..\Films.Domain\Films.Domain.csproj" />
   </ItemGroup>
 

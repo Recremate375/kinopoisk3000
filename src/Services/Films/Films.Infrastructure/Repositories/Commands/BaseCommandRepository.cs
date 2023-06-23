@@ -1,4 +1,6 @@
 ﻿using Films.Application.Repositories.Commands;
+using Films.Infrastructure.Context;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,19 +11,33 @@ namespace Films.Infrastructure.Repositories.Commands
 {
 	public class BaseCommandRepository<T> : IBaseCommandRepository<T> where T : class
 	{
-		public Task<T> AddAsync(T entity)
+		private readonly FilmsDbContext context;
+		private readonly DbSet<T> dbSet;
+
+		public BaseCommandRepository(FilmsDbContext context)
 		{
-			throw new NotImplementedException();
+			this.context = context;
+			this.dbSet = context.Set<T>();
 		}
 
-		public Task DeleteAsync(T entity)
+		public async Task CreateAsync(T entity)
 		{
-			throw new NotImplementedException();
+			await dbSet.AddAsync(entity);
 		}
 
-		public Task UpdateAsync(T entity)
+		public void DeleteAsync(T entity)
 		{
-			throw new NotImplementedException();
+			dbSet.Remove(entity);
+		}
+
+		public void Update(T entity)
+		{
+			dbSet.Attach(entity);
+			dbSet.Entry(entity).State = EntityState.Modified;
+		}
+		public async Task SaveAsync()
+		{
+			await context.SaveChangesAsync();
 		}
 	}
 }

@@ -12,7 +12,7 @@ namespace Films.Infrastructure.Repositories.Commands
 	{
 		private readonly FilmsDbContext context;
 
-		public TypeCommandRepository(FilmsDbContext context)
+		public TypeCommandRepository(FilmsDbContext context) : base(context)
 		{
 			this.context = context;
 		}

@@ -9,6 +9,8 @@ namespace Films.Application.Repositories.Queryes
 {
 	public interface IFilmQueryRepository : IBaseQueryRepository<Film>
 	{
-
+		Task<Film> GetFilmByNameAsync(string filmName);
+		Task<List<Film>> GetFilmsByTypeAsync(Domain.Models.Type filmtype);
+		Task<List<Film>> GetFilmsByProductinoYear(DateTime filmDate);
 	}
 }

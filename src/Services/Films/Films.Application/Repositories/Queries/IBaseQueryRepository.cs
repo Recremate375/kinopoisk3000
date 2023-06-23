@@ -8,7 +8,7 @@ namespace Films.Application.Repositories.Queryes
 {
 	public interface IBaseQueryRepository <T> where T : class
 	{
-		Task<IReadOnlyList<T>> GetAllAsync();
+		Task<List<T>> GetAllAsync();
 		Task<T> GetByIdAsync(int id);
 	}
 }

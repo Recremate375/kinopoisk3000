@@ -8,8 +8,9 @@ namespace Films.Application.Repositories.Commands
 {
 	public interface IBaseCommandRepository<T> where T : class
 	{
-		Task<T> AddAsync(T entity);
-		Task UpdateAsync(T entity);
-		Task DeleteAsync(T entity);
+		Task CreateAsync(T entity);
+		void Update(T entity);
+		void DeleteAsync(T entity);
+		Task SaveAsync();
 	}
 }
