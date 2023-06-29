@@ -1,11 +1,6 @@
 ﻿using Identity.Application.Repositories;
 using Identity.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Identity.Infrastructure.Repositories
 {
@@ -20,19 +15,19 @@ namespace Identity.Infrastructure.Repositories
 			dbSet = context.Set<T>();
 		}
 
-		public async void DeleteAsync(int id)
+		public async Task CreateAsync(T entity)
 		{
-			T? entity = await GetByIdAsync(id);
+			await dbSet.AddAsync(entity);
+		}
 
-			if (entity != null)
-			{
-				dbSet.Remove(entity);
-			}
+		public void Delete(T entity)
+		{
+			dbSet.Remove(entity);
 		}
 
 		public async Task<List<T>> GetAllAsync()
 		{
-			return await dbSet.ToListAsync();
+			return await dbSet.AsNoTracking().ToListAsync();
 		}
 
 		public async Task<T> GetByIdAsync(int id)

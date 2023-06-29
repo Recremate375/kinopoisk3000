@@ -1,4 +1,5 @@
-﻿using Identity.Application.Repositories;
+﻿using Identity.Application.IServices;
+using Identity.Application.Repositories;
 using Identity.Domain.Models;
 using Microsoft.AspNetCore.Authorization.Infrastructure;
 using Microsoft.Extensions.Options;
@@ -13,26 +14,18 @@ using System.Threading.Tasks;
 
 namespace Identity.Application.Features
 {
-	public class GenerateJWTClass
+    public class GenerateJWTService : IGenerateJWTService
 	{
-		private IRoleRepository roleRepository;
-		private AuthOptions options = new();
+		private readonly AuthOptions options;
 
-		public GenerateJWTClass(IRoleRepository roleRepository, IOptions<AuthOptions> authOptions) 
+		public GenerateJWTService(IOptions<AuthOptions> authOptions) 
 		{
-			this.roleRepository = roleRepository;
-		}
-
-		private SymmetricSecurityKey GetSymmetricSecurityKey()
-		{
-			return new SymmetricSecurityKey(Encoding.ASCII.GetBytes(options.Secret));
+			options = authOptions.Value;
 		}
 
 		public string GenerateJWT(User user)
 		{
-			
-			var roles = roleRepository.GetAllAsync();
-			var securityKey = GetSymmetricSecurityKey();
+			var securityKey = options.GetSymmetricSecurityKey();
 			var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
 			var claims = new List<Claim>
@@ -40,7 +33,7 @@ namespace Identity.Application.Features
 				new Claim(JwtRegisteredClaimNames.Email, user.Email),
 				new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
 				new Claim(JwtRegisteredClaimNames.Name, user.Login),
-				new Claim("role", user.UserRole.RoleName)
+				new Claim(ClaimTypes.Role, user.UserRole.RoleName)
 			};
 
 			var token = new JwtSecurityToken(options.Issuer,

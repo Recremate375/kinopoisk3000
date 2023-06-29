@@ -10,8 +10,9 @@ namespace Identity.Application.Repositories
 	{
 		Task<List<T>> GetAllAsync();
 		Task<T> GetByIdAsync(int id);
+		Task CreateAsync(T entity);
 		void Update(T entity);
-		void DeleteAsync(int id);
+		void Delete(T entity);
 		Task SaveAsync();
 	}
 }

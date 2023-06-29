@@ -1,73 +1,55 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Identity.Domain.DTO;
 using Identity.Domain.Models;
-using Identity.Application.Repositories;
-using System.Formats.Asn1;
 using Microsoft.AspNetCore.Authorization;
-using AutoMapper;
-using System.Data;
+using Identity.Application.IServices;
 
-namespace Identity.WebApi.Controllers
+namespace Identity.Domain.Controllers
 {
 	[Route("api/[controller]")]
 	[ApiController]
 
 	public class RolesController : ControllerBase
 	{
-		private readonly IRoleRepository roleRepository;
-		private readonly IMapper mapper;
+		private readonly IRoleService rolesService;
 
-		public RolesController(IRoleRepository roleRepository, IMapper mapper)
+		public RolesController(IRoleService roleService)
 		{
-			this.roleRepository = roleRepository;
-			this.mapper = mapper;
+			this.rolesService = roleService;
 		}
 
-		[HttpGet]
 		[Authorize(Roles = "admin")]
+		[HttpGet]
 		public async Task<ActionResult<IEnumerable<Role>>> GetAllRoles()
 		{
-			var roles = await roleRepository.GetAllAsync();
-			var rolesDTO = mapper.Map<List<RoleDTO>>(roles);
-
-			return Ok(rolesDTO);
+			var roles = await rolesService.GetAllRolesAsync();
+			
+			return Ok(roles);
 		}
 
-		[HttpPost]
 		[Authorize(Roles = "admin")]
+		[HttpPost]
 		public async Task<ActionResult<Role>> AddNewRole([FromBody] RoleDTO roleDTO)
 		{
-			if(!ModelState.IsValid)
-			{
-				return StatusCode(StatusCodes.Status400BadRequest, ModelState);
-			}
-
-			var role = mapper.Map<Role>(roleDTO);
-
-			await roleRepository.CreateAsync(role);
-			await roleRepository.SaveAsync();
+			await rolesService.CreateRoleAsync(roleDTO);
 
 			return Ok(roleDTO);
 		}
 
+		[Authorize(Roles = "admin")]
 		[HttpPut]
 		public async Task<ActionResult<Role>> ChangeRole([FromBody] RoleDTO roleDTO)
 		{
-			var role = mapper.Map<Role>(roleDTO);
+			await rolesService.UpdateRoleAsync(roleDTO);
 
-			roleRepository.Update(role);
-			await roleRepository.SaveAsync();
-
-			return Ok(role);
+			return Ok(roleDTO);
 		}
 
-		[HttpDelete]
 		[Authorize(Roles = "admin")]
+		[HttpDelete]
 		public async Task<IActionResult> DeleteRole(int id)
 		{
-			roleRepository.DeleteAsync(id);
-			await roleRepository.SaveAsync();
+			await rolesService.DeleteRoleAsync(id);
 
 			return Ok();
 		}

@@ -3,7 +3,7 @@ using FluentValidation.AspNetCore;
 using Identity.Domain.DTO;
 using Identity.Domain.Validators;
 
-namespace Identity.WebApi.ExtensionsMethods
+namespace Identity.Domain.ExtensionsMethods
 {
 	public static class FluentValidation
 	{

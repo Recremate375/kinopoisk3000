@@ -1,6 +1,6 @@
 ﻿using Identity.Domain.Common;
 
-namespace Identity.WebApi.ExtensionsMethods
+namespace Identity.Domain.ExtensionsMethods
 {
 	public static class AddAutoMapperExtension
 	{

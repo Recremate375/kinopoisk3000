@@ -23,14 +23,9 @@ namespace Identity.Infrastructure.Repositories
 
 			return user;
 		}
-
-		public async Task CreateAsync(User entity)
+		public new async Task<List<User>> GetAllAsync()
 		{
-			var role = await roleRepository.GetRoleByNameAsync("user");
-
-			entity.UserRole = role;
-
-			await _context.Users.AddAsync(entity);
+			return await _context.Users.Include(x => x.UserRole).AsNoTracking().ToListAsync();
 		}
 
 	}

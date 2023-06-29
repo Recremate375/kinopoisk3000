@@ -1,7 +1,7 @@
 ﻿using Identity.Application.Repositories;
 using Identity.Infrastructure.Repositories;
 
-namespace Identity.WebApi.ExtensionsMethods
+namespace Identity.Domain.ExtensionsMethods
 {
 	public static class AddReposExtensions
 	{

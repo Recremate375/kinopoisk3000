@@ -1,7 +1,7 @@
 ﻿using Identity.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 
-namespace Identity.WebApi.ExtensionsMethods
+namespace Identity.Domain.ExtensionsMethods
 {
 	public static class AddMSSQLExtension
 	{

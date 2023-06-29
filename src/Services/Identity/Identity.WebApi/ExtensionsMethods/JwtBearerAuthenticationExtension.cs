@@ -1,14 +1,14 @@
 ﻿using Identity.Domain.Models;
 
-namespace Identity.WebApi.ExtensionsMethods
+namespace Identity.Domain.ExtensionsMethods
 {
 	public static class JwtBearerAuthenticationExtension
 	{
-
 		public static IServiceCollection AddJwtAuthentication(this IServiceCollection services, IConfiguration config)
 		{
-			var authOptions = config.GetSection("Auth").Get<AuthOptions>();
+			services.Configure<AuthOptions>(config.GetSection("Auth"));
 
+			var authOptions = config.GetSection("Auth").Get<AuthOptions>();
 			services.AddAuthentication().AddJwtBearer(options =>
 			{
 				options.RequireHttpsMetadata = true;

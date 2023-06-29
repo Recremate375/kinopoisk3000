@@ -14,12 +14,6 @@ namespace Identity.Infrastructure.Repositories
 			this.context = context;
 		}
 
-		public async Task CreateAsync(Role entity)
-		{
-			await context.Roles.AddAsync(entity);
-			await SaveAsync();
-		}
-
 		public async Task<Role> GetRoleByNameAsync(string roleName)
 		{
 			return await context.Roles.FirstOrDefaultAsync(x => x.RoleName == roleName);

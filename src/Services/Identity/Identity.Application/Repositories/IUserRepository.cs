@@ -10,7 +10,6 @@ namespace Identity.Application.Repositories
 {
 	public interface IUserRepository : IBaseRepository<User>
 	{
-		Task CreateAsync(User entity);
 		Task<User> GetUserByEmailAsync(string email);
 	}
 }
