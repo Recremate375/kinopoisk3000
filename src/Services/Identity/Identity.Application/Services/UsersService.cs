@@ -17,6 +17,7 @@ namespace Identity.Application.Features
         private readonly IValidator<UserDTO> userDTOValidator;
         private readonly IValidator<CreateUserDTO> createUserDTOValidator;
         private readonly IValidator<LoginUserDTO> loginUserDTOValidator;
+
         public UsersService(IUserRepository userRepository, IRoleRepository roleRepository,
             IMapper mapper, IGenerateJWTService generateJWTClass,
             IValidator<UserDTO> userDTOvalidator, IValidator<CreateUserDTO> createUserDTOValidator,
