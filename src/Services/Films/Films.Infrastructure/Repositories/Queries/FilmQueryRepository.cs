@@ -19,19 +19,24 @@ namespace Films.Infrastructure.Repositories.Queries
 			this.context = context;
 		}
 
+		public new async Task<List<Film>> GetAllAsync()
+		{
+			return await context.Films.Include(x => x.Type).AsNoTracking().ToListAsync();
+		}
+
 		public async Task<Film> GetFilmByNameAsync(string filmName)
 		{
 			return await context.Films.FirstOrDefaultAsync(x => x.FilmName == filmName);
 		}
 
-		public async Task<List<Film>> GetFilmsByProductinoYear(DateTime filmDate)
+		public async Task<List<Film>> GetFilmsByProductionYear(DateTime filmDate)
 		{
 			return await context.Films.AsNoTracking().Where(x => x.ProductionYear == filmDate).ToListAsync();
 		}
 
-		public async Task<List<Film>> GetFilmsByTypeAsync(Domain.Models.Type filmtype)
+		public async Task<List<Film>> GetFilmsByTypeAsync(FilmType filmtype)
 		{
-			return await context.Films.AsNoTracking().Where(x => x.FilmType == filmtype).ToListAsync();
+			return await context.Films.AsNoTracking().Where(x => x.Type == filmtype).ToListAsync();
 		}
 	}
 }

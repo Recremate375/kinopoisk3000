@@ -13,6 +13,6 @@ namespace Films.Infrastructure.Context
 		public FilmsDbContext(DbContextOptions options) : base(options) { }
 
 		public DbSet<Film> Films { get; set; }
-		public DbSet<Domain.Models.Type> Types { get; set; }
+		public DbSet<FilmType> Types { get; set; }
 	}
 }

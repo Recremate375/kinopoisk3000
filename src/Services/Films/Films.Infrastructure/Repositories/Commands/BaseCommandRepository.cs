@@ -24,12 +24,10 @@ namespace Films.Infrastructure.Repositories.Commands
 		{
 			await dbSet.AddAsync(entity);
 		}
-
-		public void DeleteAsync(T entity)
+		public void Delete(T entity)
 		{
 			dbSet.Remove(entity);
 		}
-
 		public void Update(T entity)
 		{
 			dbSet.Attach(entity);

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Films.Infrastructure.Repositories.Commands
 {
-	public class TypeCommandRepository : BaseCommandRepository<Domain.Models.Type>, ITypeCommandRepository
+	public class TypeCommandRepository : BaseCommandRepository<Domain.Models.FilmType>, ITypeCommandRepository
 	{
 		private readonly FilmsDbContext context;
 

@@ -9,9 +9,10 @@ namespace Films.Domain.Mapper
 		public MappingProfile()
 		{
 			CreateMap<Film, FilmDTO>().ReverseMap();
-			CreateMap<Models.Type, TypeDTO>().ReverseMap();
+			CreateMap<FilmType, FilmTypeDTO>().ReverseMap();
 			CreateMap<Film, CreateFilmDTO>().ReverseMap();
-			CreateMap<Models.Type, CreateTypeDTO>().ReverseMap();
+			CreateMap<FilmType, CreateTypeDTO>().ReverseMap();
+			CreateMap<Film, UpdateFilmDTO>().ReverseMap();
 		}
 	}
 }

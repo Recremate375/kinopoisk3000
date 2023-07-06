@@ -10,7 +10,7 @@ namespace Films.Application.Repositories.Commands
 	{
 		Task CreateAsync(T entity);
 		void Update(T entity);
-		void DeleteAsync(T entity);
+		void Delete(T entity);
 		Task SaveAsync();
 	}
 }

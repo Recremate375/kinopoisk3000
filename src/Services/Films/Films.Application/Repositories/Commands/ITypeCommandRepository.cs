@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Films.Application.Repositories.Commands
 {
-	public interface ITypeCommandRepository : IBaseCommandRepository<Domain.Models.Type>
+	public interface ITypeCommandRepository : IBaseCommandRepository<Domain.Models.FilmType>
 	{
 
 	}
