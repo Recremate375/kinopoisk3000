@@ -12,21 +12,21 @@ namespace Films.Application.Types.Commands.CreateType
 {
 	public class CreateTypeCommandHandler : IRequestHandler<CreateTypeCommand, int>
 	{
-		private readonly ITypeCommandRepository typeCommandRepository;
-		private readonly IMapper mapper;
+		private readonly ITypeCommandRepository _typeCommandRepository;
+		private readonly IMapper _mapper;
 
         public CreateTypeCommandHandler(ITypeCommandRepository typeCommandRepository, IMapper mapper)
         {
-			this.typeCommandRepository = typeCommandRepository;
-			this.mapper = mapper;
+			_typeCommandRepository = typeCommandRepository;
+			_mapper = mapper;
         }
 
         public async Task<int> Handle(CreateTypeCommand request, CancellationToken cancellationToken)
 		{
-			var type = mapper.Map<Domain.Models.FilmType>(request.Type);
+			var type = _mapper.Map<FilmType>(request.Type);
 
-			await typeCommandRepository.CreateAsync(type);
-			await typeCommandRepository.SaveAsync();
+			await _typeCommandRepository.CreateAsync(type);
+			await _typeCommandRepository.SaveAsync();
 
 			return type.FilmTypeId;
 		}

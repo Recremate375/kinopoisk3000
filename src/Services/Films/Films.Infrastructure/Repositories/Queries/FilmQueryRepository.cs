@@ -12,31 +12,31 @@ namespace Films.Infrastructure.Repositories.Queries
 {
 	public class FilmQueryRepository : BaseQueryRepository<Film>, IFilmQueryRepository
 	{
-		private readonly FilmsDbContext context;
+		private readonly FilmsDbContext _context;
 
 		public FilmQueryRepository(FilmsDbContext context) : base(context)
 		{
-			this.context = context;
+			_context = context;
 		}
 
 		public new async Task<List<Film>> GetAllAsync()
 		{
-			return await context.Films.Include(x => x.Type).AsNoTracking().ToListAsync();
+			return await _context.Films.Include(x => x.Type).AsNoTracking().ToListAsync();
 		}
 
 		public async Task<Film> GetFilmByNameAsync(string filmName)
 		{
-			return await context.Films.FirstOrDefaultAsync(x => x.FilmName == filmName);
+			return await _context.Films.FirstOrDefaultAsync(x => x.FilmName == filmName);
 		}
 
 		public async Task<List<Film>> GetFilmsByProductionYear(DateTime filmDate)
 		{
-			return await context.Films.AsNoTracking().Where(x => x.ProductionYear == filmDate).ToListAsync();
+			return await _context.Films.AsNoTracking().Where(x => x.ProductionYear == filmDate).ToListAsync();
 		}
 
 		public async Task<List<Film>> GetFilmsByTypeAsync(FilmType filmtype)
 		{
-			return await context.Films.AsNoTracking().Where(x => x.Type == filmtype).ToListAsync();
+			return await _context.Films.AsNoTracking().Where(x => x.Type == filmtype).ToListAsync();
 		}
 	}
 }

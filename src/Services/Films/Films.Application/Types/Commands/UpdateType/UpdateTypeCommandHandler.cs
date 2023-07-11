@@ -13,22 +13,22 @@ namespace Films.Application.Types.Commands.UpdateType
 {
 	public class UpdateTypeCommandHandler : IRequestHandler<UpdateTypeCommand>
 	{
-		private readonly ITypeCommandRepository typeCommandRepository;
-		private readonly ITypeQueryRepository typeQueryRepository;
+		private readonly ITypeCommandRepository _typeCommandRepository;
+		private readonly ITypeQueryRepository _typeQueryRepository;
 
         public UpdateTypeCommandHandler(ITypeCommandRepository typeCommandRepository, ITypeQueryRepository typeQueryRepository)
         {
-			this.typeCommandRepository = typeCommandRepository;
-			this.typeQueryRepository = typeQueryRepository;
+			_typeCommandRepository = typeCommandRepository;
+			_typeQueryRepository = typeQueryRepository;
         }
 
         public async Task Handle(UpdateTypeCommand request, CancellationToken cancellationToken)
 		{
-			var type = await typeQueryRepository.GetByIdAsync(request.Type.FilmTypeId) ?? throw new NotFoundException($"Invalid type model");
+			var type = await _typeQueryRepository.GetByIdAsync(request.Type.FilmTypeId) ?? throw new NotFoundException($"Invalid type model");
 			type.TypeName = request.Type.TypeName;
 
-			typeCommandRepository.Update(type);
-			await typeCommandRepository.SaveAsync();
+			_typeCommandRepository.Update(type);
+			await _typeCommandRepository.SaveAsync();
 		}
 	}
 }

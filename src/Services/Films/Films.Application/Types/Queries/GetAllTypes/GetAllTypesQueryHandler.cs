@@ -13,19 +13,19 @@ namespace Films.Application.Types.Queries.GetAllTypes
 {
 	public class GetAllTypesQueryHandler : IRequestHandler<GetAllTypesQuery, List<FilmTypeDTO>>
 	{
-		private readonly ITypeQueryRepository typeQueryRepository;
-		private readonly IMapper mapper;
+		private readonly ITypeQueryRepository _typeQueryRepository;
+		private readonly IMapper _mapper;
 
         public GetAllTypesQueryHandler(ITypeQueryRepository typeQueryRepository, IMapper mapper)
         {
-			this.typeQueryRepository = typeQueryRepository;
-			this.mapper = mapper;
+			_typeQueryRepository = typeQueryRepository;
+			_mapper = mapper;
         }
 
         public async Task<List<FilmTypeDTO>> Handle(GetAllTypesQuery request, CancellationToken cancellationToken)
 		{
-			var types = await typeQueryRepository.GetAllAsync() ?? throw new NotFoundException($"Types not found.");
-			var typesDTO = mapper.Map<List<FilmTypeDTO>>(types);
+			var types = await _typeQueryRepository.GetAllAsync() ?? throw new NotFoundException($"Types not found.");
+			var typesDTO = _mapper.Map<List<FilmTypeDTO>>(types);
 				
 			return typesDTO;
 		}

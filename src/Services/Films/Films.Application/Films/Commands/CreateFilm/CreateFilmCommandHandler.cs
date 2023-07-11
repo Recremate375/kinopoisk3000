@@ -14,25 +14,25 @@ namespace Films.Application.Films.Commands.CreateFilm
 {
 	public class CreateFilmCommandHandler : IRequestHandler<CreateFilmCommand, Film>
 	{
-		private readonly IFilmCommandRepository filmCommandRepository;
-		private readonly ITypeQueryRepository typeQueryRepository;
-		private readonly IMapper mapper;
+		private readonly IFilmCommandRepository _filmCommandRepository;
+		private readonly ITypeQueryRepository _typeQueryRepository;
+		private readonly IMapper _mapper;
 
         public CreateFilmCommandHandler(IFilmCommandRepository filmCommandRepository, ITypeQueryRepository typeQueryRepository, IMapper mapper)
         {
-			this.filmCommandRepository = filmCommandRepository;
-			this.typeQueryRepository = typeQueryRepository;
-			this.mapper = mapper;
+			_filmCommandRepository = filmCommandRepository;
+			_typeQueryRepository = typeQueryRepository;
+			_mapper = mapper;
         }
 
         public async Task<Film> Handle(CreateFilmCommand request, CancellationToken cancellationToken)
 		{
-			var type = await typeQueryRepository.GetTypeByNameAsync(request.CreateFilmDTO.Type.TypeName);
-			var film = mapper.Map<Film>(request.CreateFilmDTO);
+			var type = await _typeQueryRepository.GetTypeByNameAsync(request.CreateFilmDTO.Type.TypeName);
+			var film = _mapper.Map<Film>(request.CreateFilmDTO);
 			film.Type = type;
 
-			await filmCommandRepository.CreateAsync(film);
-			await filmCommandRepository.SaveAsync();
+			await _filmCommandRepository.CreateAsync(film);
+			await _filmCommandRepository.SaveAsync();
 
 			return film;
 		}

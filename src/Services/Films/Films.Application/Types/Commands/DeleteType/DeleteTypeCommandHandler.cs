@@ -12,20 +12,20 @@ namespace Films.Application.Types.Commands.DeleteType
 {
 	public class DeleteTypeCommandHandler : IRequestHandler<DeleteTypeCommand>
 	{
-		private readonly ITypeCommandRepository typeCommandRepository;
-		private readonly ITypeQueryRepository typeQueryRepository;
+		private readonly ITypeCommandRepository _typeCommandRepository;
+		private readonly ITypeQueryRepository _typeQueryRepository;
 
         public DeleteTypeCommandHandler(ITypeCommandRepository typeCommandRepository, ITypeQueryRepository typeQueryRepository)
         {
-			this.typeCommandRepository = typeCommandRepository;
-			this.typeQueryRepository = typeQueryRepository;
+			_typeCommandRepository = typeCommandRepository;
+			_typeQueryRepository = typeQueryRepository;
         }
 
         public async Task Handle(DeleteTypeCommand request, CancellationToken cancellationToken)
 		{
-			var type = await typeQueryRepository.GetByIdAsync(request.Id) ?? throw new NotFoundException($"Type with {request.Id} Id not found");
+			var type = await _typeQueryRepository.GetByIdAsync(request.Id) ?? throw new NotFoundException($"Type with {request.Id} Id not found");
 
-			typeCommandRepository.Delete(type);
+			_typeCommandRepository.Delete(type);
 		}
 	}
 }

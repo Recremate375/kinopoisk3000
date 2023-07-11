@@ -12,16 +12,16 @@ namespace Films.Infrastructure.Repositories.Queries
 {
 	public class TypeQueryRepository : BaseQueryRepository<Domain.Models.FilmType>, ITypeQueryRepository
 	{
-		private readonly FilmsDbContext context;
+		private readonly FilmsDbContext _context;
 
 		public TypeQueryRepository(FilmsDbContext context) : base(context)
 		{
-			this.context = context;
+			_context = context;
 		}
 
 		public async Task<Domain.Models.FilmType> GetTypeByNameAsync(string typeName)
 		{
-			return await context.Types.FirstOrDefaultAsync(x => x.TypeName == typeName);
+			return await _context.Types.FirstOrDefaultAsync(x => x.TypeName == typeName);
 		}
 	}
 }

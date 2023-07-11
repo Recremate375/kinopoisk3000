@@ -12,19 +12,19 @@ namespace Films.Application.Types.Queries.GetTypeByName
 {
 	public class GetTypeByNameQueryHandler : IRequestHandler<GetTypeByNameQuery, FilmTypeDTO>
 	{
-		private readonly ITypeQueryRepository repository;
-		private readonly IMapper mapper;
+		private readonly ITypeQueryRepository _repository;
+		private readonly IMapper _mapper;
 
         public GetTypeByNameQueryHandler(ITypeQueryRepository repository, IMapper mapper)
         {
-            this.repository = repository;
-			this.mapper = mapper;
+            _repository = repository;
+			_mapper = mapper;
         }
 
         public async Task<FilmTypeDTO> Handle(GetTypeByNameQuery request, CancellationToken cancellationToken)
 		{
-			var type = await repository.GetTypeByNameAsync(request.TypeName);
-			var typeDTO = mapper.Map<FilmTypeDTO>(type);
+			var type = await _repository.GetTypeByNameAsync(request.TypeName);
+			var typeDTO = _mapper.Map<FilmTypeDTO>(type);
 
 			return typeDTO;
 		}

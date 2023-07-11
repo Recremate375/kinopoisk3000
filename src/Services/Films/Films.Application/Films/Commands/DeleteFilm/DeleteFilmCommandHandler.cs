@@ -12,21 +12,21 @@ namespace Films.Application.Films.Commands.DeleteFilm
 {
 	public class DeleteFilmCommandHandler : IRequestHandler<DeleteFilmCommand>
 	{
-		private readonly IFilmCommandRepository filmCommandRepository;
-		private readonly IFilmQueryRepository filmQueryRepository;
+		private readonly IFilmCommandRepository _filmCommandRepository;
+		private readonly IFilmQueryRepository _filmQueryRepository;
 
         public DeleteFilmCommandHandler(IFilmCommandRepository filmCommandRepository, IFilmQueryRepository filmQueryRepository)
         {
-			this.filmCommandRepository = filmCommandRepository;
-			this.filmQueryRepository = filmQueryRepository;
+			_filmCommandRepository = filmCommandRepository;
+			_filmQueryRepository = filmQueryRepository;
         }
 
         public async Task Handle(DeleteFilmCommand request, CancellationToken cancellationToken)
 		{
-			var entity = await filmQueryRepository.GetByIdAsync(request.Id) ?? throw new NotFoundException($"Entity with number {request.Id} not found!");
+			var entity = await _filmQueryRepository.GetByIdAsync(request.Id) ?? throw new NotFoundException($"Entity with number {request.Id} not found!");
 
-			filmCommandRepository.Delete(entity);
-			await filmCommandRepository.SaveAsync();
+			_filmCommandRepository.Delete(entity);
+			await _filmCommandRepository.SaveAsync();
 		}
 
 	}

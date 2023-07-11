@@ -11,31 +11,34 @@ namespace Films.Infrastructure.Repositories.Commands
 {
 	public class BaseCommandRepository<T> : IBaseCommandRepository<T> where T : class
 	{
-		private readonly FilmsDbContext context;
-		private readonly DbSet<T> dbSet;
+		private readonly FilmsDbContext _context;
+		private readonly DbSet<T> _dbSet;
 
 		public BaseCommandRepository(FilmsDbContext context)
 		{
-			this.context = context;
-			this.dbSet = context.Set<T>();
+			_context = context;
+			_dbSet = context.Set<T>();
 		}
 
 		public async Task CreateAsync(T entity)
 		{
-			await dbSet.AddAsync(entity);
+			await _dbSet.AddAsync(entity);
 		}
+
 		public void Delete(T entity)
 		{
-			dbSet.Remove(entity);
+			_dbSet.Remove(entity);
 		}
+
 		public void Update(T entity)
 		{
-			dbSet.Attach(entity);
-			dbSet.Entry(entity).State = EntityState.Modified;
+			_dbSet.Attach(entity);
+			_dbSet.Entry(entity).State = EntityState.Modified;
 		}
+
 		public async Task SaveAsync()
 		{
-			await context.SaveChangesAsync();
+			await _context.SaveChangesAsync();
 		}
 	}
 }
