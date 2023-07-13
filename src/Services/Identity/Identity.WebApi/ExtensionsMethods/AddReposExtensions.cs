@@ -7,8 +7,8 @@ namespace Identity.Domain.ExtensionsMethods
 	{
 		public static IServiceCollection AddRepositories(this IServiceCollection services)
 		{
-			services.AddTransient<IRoleRepository, RoleRepository>();
-			services.AddTransient<IUserRepository, UserRepository>();
+			services.AddScoped<IRoleRepository, RoleRepository>();
+			services.AddScoped<IUserRepository, UserRepository>();
 
 			return services;
 		}

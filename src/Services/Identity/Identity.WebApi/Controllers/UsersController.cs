@@ -18,7 +18,12 @@ namespace Identity.Domain.Controllers
 
 		[HttpPost("login")]
 		[ProducesResponseType(StatusCodes.Status201Created)]
-		public async Task<IActionResult> Login([FromBody] LoginUserDTO loginUserDTO) => Ok(new { Token = await usersService.GetAuthenticationTokenAsync(loginUserDTO) });
+		public async Task<IActionResult> Login([FromBody] LoginUserDTO loginUserDTO)
+		{
+			string token = await usersService.GetAuthenticationTokenAsync(loginUserDTO);
+			
+			return Ok(new { Token = token });
+		} 
 
 		[HttpPost]
 		[ProducesResponseType(StatusCodes.Status201Created)]
@@ -33,7 +38,10 @@ namespace Identity.Domain.Controllers
 		[ProducesResponseType(StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status204NoContent)]
 		[Authorize(Roles = "admin")]
-		public async Task<ActionResult<IEnumerable<UserDTO>>> GetAllUsers() => Ok(await usersService.GetAllUsersAsync());
+		public async Task<ActionResult<IEnumerable<UserDTO>>> GetAllUsers()
+		{
+			return Ok(await usersService.GetAllUsersAsync());
+		}
 
 		[HttpPut]
 		[ProducesResponseType(StatusCodes.Status200OK)]

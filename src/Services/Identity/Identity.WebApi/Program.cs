@@ -4,7 +4,7 @@ using FluentValidation.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddCustomAutoMapper();
+builder.Services.ConfigureAutoMapper();
 builder.Services.AddRepositories();
 builder.Services.AddMSSQLDbContext(builder.Configuration);
 builder.Services.AddJwtAuthentication(builder.Configuration);

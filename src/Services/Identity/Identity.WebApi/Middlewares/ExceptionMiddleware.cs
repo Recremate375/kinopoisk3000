@@ -22,33 +22,49 @@ namespace Identity.Domain.Middlewares
 			catch (Exception ex)
 			{
 				Console.WriteLine(ex.Message);
+				await HandleExceptionAsync(context, ex);
 			}
 		}
+
 		private static Task HandleExceptionAsync(HttpContext context, Exception exception)
 		{
-			var statusCode = HttpStatusCode.InternalServerError;
+			HttpStatusCode statusCode;
 
-			if (exception is BadRequestException)
+			switch (exception)
 			{
-				statusCode = HttpStatusCode.BadRequest;
-			}
-			else if (exception is NotFoundException)
-			{
-				statusCode = HttpStatusCode.NotFound;
-			}
-			else if (exception is UnauthorizedException)
-			{
-				statusCode = HttpStatusCode.Unauthorized;
-			}
-			else if (exception is ForbiddenException)
-			{
-				statusCode = HttpStatusCode.Forbidden;
+				case BadRequestException:
+				{
+					statusCode = HttpStatusCode.BadRequest;
+					break;
+				}
+				case NotFoundException:
+				{
+					statusCode = HttpStatusCode.NotFound;
+					break;
+				}
+				case UnauthorizedException:
+				{
+					statusCode = HttpStatusCode.Unauthorized;
+					break;
+				}
+
+				case ForbiddenException:
+				{
+					statusCode = HttpStatusCode.Forbidden;
+					break;
+				}
+				default:
+				{
+					statusCode = HttpStatusCode.InternalServerError;
+					break;
+				}
 			}
 
 			var response = new { error = exception.Message };
 			var jsonResponse = JsonConvert.SerializeObject(response);
 			context.Response.ContentType = "application/json";
 			context.Response.StatusCode = (int)statusCode;
+
 			return context.Response.WriteAsync(jsonResponse);
 		}
 	}

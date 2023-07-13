@@ -2,6 +2,7 @@
 using Identity.Application.Repositories;
 using Identity.Domain.Models;
 using Microsoft.AspNetCore.Authorization.Infrastructure;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -23,9 +24,14 @@ namespace Identity.Application.Features
 			options = authOptions.Value;
 		}
 
+		private SymmetricSecurityKey GetSymmetricSecurityKey()
+		{
+			return new SymmetricSecurityKey(Encoding.ASCII.GetBytes(options.Secret));
+		}
+
 		public string GenerateJWT(User user)
 		{
-			var securityKey = options.GetSymmetricSecurityKey();
+			var securityKey = GetSymmetricSecurityKey();
 			var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
 			var claims = new List<Claim>
@@ -44,6 +50,5 @@ namespace Identity.Application.Features
 
 			return new JwtSecurityTokenHandler().WriteToken(token);
 		}
-
 	}
 }
