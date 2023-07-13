@@ -1,16 +1,16 @@
-﻿using Films.Application.Films.Commands.CreateFilm;
-using Films.Application.Films.Commands.DeleteFilm;
-using Films.Application.Films.Commands.UpdateFilm;
-using Films.Application.Films.Queries.GetAllFilms;
-using Films.Application.Films.Queries.GetFilmById;
-using Films.Application.Films.Queries.GetFilmByName;
-using Films.Application.Films.Queries.GetFilmsByProductionYear;
-using Films.Application.Films.Queries.GetFilmsByType;
-using Films.Application.Types.Commands.CreateType;
-using Films.Application.Types.Commands.DeleteType;
-using Films.Application.Types.Commands.UpdateType;
-using Films.Application.Types.Queries.GetAllTypes;
-using Films.Application.Types.Queries.GetTypeById;
+﻿using Films.Application.Features.Films.Commands.CreateFilm;
+using Films.Application.Features.Films.Commands.DeleteFilm;
+using Films.Application.Features.Films.Commands.UpdateFilm;
+using Films.Application.Features.Films.Queries.GetAllFilms;
+using Films.Application.Features.Films.Queries.GetFilmById;
+using Films.Application.Features.Films.Queries.GetFilmByName;
+using Films.Application.Features.Films.Queries.GetFilmsByProductionYear;
+using Films.Application.Features.Films.Queries.GetFilmsByType;
+using Films.Application.Features.Types.Commands.CreateType;
+using Films.Application.Features.Types.Commands.DeleteType;
+using Films.Application.Features.Types.Commands.UpdateType;
+using Films.Application.Features.Types.Queries.GetAllTypes;
+using Films.Application.Features.Types.Queries.GetTypeById;
 using MediatR;
 using Microsoft.EntityFrameworkCore.Update.Internal;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,7 +18,7 @@ using System.Reflection;
 
 namespace Films.WebApi.ExtensionMethods
 {
-	public static class AddMyMediatR
+    public static class AddMyMediatR
 	{
 		public static IServiceCollection AddMyMediatr(this IServiceCollection services)
 		{

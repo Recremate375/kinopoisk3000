@@ -22,6 +22,7 @@ namespace Films.WebApi.Middleware
 			catch (Exception ex)
 			{
 				Console.WriteLine(ex.Message);
+				await HandleExceptionAsync(context, ex);
 			}
 		}
 		private static Task HandleExceptionAsync(HttpContext context, Exception exception)
@@ -41,6 +42,7 @@ namespace Films.WebApi.Middleware
 			var jsonResponse = JsonConvert.SerializeObject(response);
 			context.Response.ContentType = "application/json";
 			context.Response.StatusCode = (int)statusCode;
+
 			return context.Response.WriteAsync(jsonResponse);
 		}
 	}
