@@ -9,18 +9,18 @@ namespace Identity.Domain.Controllers
 	[ApiController]
 	public class UsersController : ControllerBase
 	{
-		private readonly IUsersService usersService;
+		private readonly IUsersService _usersService;
 
 		public UsersController(IUsersService usersService)
 		{
-			this.usersService = usersService;
+			_usersService = usersService;
 		}
 
 		[HttpPost("login")]
 		[ProducesResponseType(StatusCodes.Status201Created)]
 		public async Task<IActionResult> Login([FromBody] LoginUserDTO loginUserDTO)
 		{
-			string token = await usersService.GetAuthenticationTokenAsync(loginUserDTO);
+			var token = await _usersService.GetAuthenticationTokenAsync(loginUserDTO);
 			
 			return Ok(new { Token = token });
 		} 
@@ -29,7 +29,7 @@ namespace Identity.Domain.Controllers
 		[ProducesResponseType(StatusCodes.Status201Created)]
 		public async Task<ActionResult<CreateUserDTO>> Register([FromBody] CreateUserDTO createUserDTO)
 		{
-			await usersService.CreateUserAsync(createUserDTO);
+			await _usersService.CreateUserAsync(createUserDTO);
 
 			return CreatedAtAction("GetUserById", createUserDTO);
 		}
@@ -40,7 +40,7 @@ namespace Identity.Domain.Controllers
 		[Authorize(Roles = "admin")]
 		public async Task<ActionResult<IEnumerable<UserDTO>>> GetAllUsers()
 		{
-			return Ok(await usersService.GetAllUsersAsync());
+			return Ok(await _usersService.GetAllUsersAsync());
 		}
 
 		[HttpPut]
@@ -48,7 +48,7 @@ namespace Identity.Domain.Controllers
 		[Authorize(Roles = "admin")]
 		public async Task<IActionResult> UpdateUser(UserDTO userDTO)
 		{
-			await usersService.UpdateUserAsync(userDTO);
+			await _usersService.UpdateUserAsync(userDTO);
 
 			return Ok();
 		}
@@ -58,7 +58,7 @@ namespace Identity.Domain.Controllers
 		[Authorize(Roles = "admin")]
 		public async Task<IActionResult> DeleteUser(int id)
 		{
-			await usersService.DeleteUserAsync(id);
+			await _usersService.DeleteUserAsync(id);
 
 			return Ok();
 		}

@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using FluentValidation;
 using Identity.Application.IServices;
 using Identity.Application.Repositories;
 using Identity.Domain.DTO;

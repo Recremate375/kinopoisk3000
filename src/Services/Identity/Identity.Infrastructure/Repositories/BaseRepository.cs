@@ -1,10 +1,11 @@
 ﻿using Identity.Application.Repositories;
+using Identity.Domain.Models;
 using Identity.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 
 namespace Identity.Infrastructure.Repositories
 {
-	public class BaseRepository<T> : IBaseRepository<T> where T: class
+	public class BaseRepository<T> : IBaseRepository<T> where T: BaseEntity
 	{
 		private readonly IdentityDbContext context;
 		private readonly DbSet<T> dbSet;
@@ -32,7 +33,7 @@ namespace Identity.Infrastructure.Repositories
 
 		public async Task<T> GetByIdAsync(int id)
 		{
-			return await dbSet.FindAsync(id);
+			return await dbSet.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
 		}
 
 		public async Task SaveAsync()

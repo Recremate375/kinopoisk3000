@@ -1,4 +1,6 @@
 ﻿using Identity.Domain.Models;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace Identity.Domain.ExtensionsMethods
 {
@@ -22,7 +24,7 @@ namespace Identity.Domain.ExtensionsMethods
 
 					ValidateLifetime = true,
 
-					IssuerSigningKey = authOptions.GetSymmetricSecurityKey(),
+					IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(authOptions.Secret)),
 					ValidateIssuerSigningKey = true
 				};
 			});

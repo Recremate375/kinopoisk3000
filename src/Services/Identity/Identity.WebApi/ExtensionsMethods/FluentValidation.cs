@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using FluentValidation.AspNetCore;
 using Identity.Application.Pipelines;
 using Identity.Domain.DTO;
 using Identity.Domain.Validators;

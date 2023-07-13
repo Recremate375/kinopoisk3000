@@ -1,5 +1,4 @@
 ﻿using Identity.Application.Repositories;
-using Identity.Domain.DTO;
 using Identity.Domain.Models;
 using Identity.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
@@ -23,6 +22,7 @@ namespace Identity.Infrastructure.Repositories
 
 			return user;
 		}
+
 		public new async Task<List<User>> GetAllAsync()
 		{
 			return await _context.Users.Include(x => x.UserRole).AsNoTracking().ToListAsync();
