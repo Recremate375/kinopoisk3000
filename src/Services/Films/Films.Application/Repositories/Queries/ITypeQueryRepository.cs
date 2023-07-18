@@ -2,6 +2,6 @@
 {
 	public interface ITypeQueryRepository : IBaseQueryRepository<Domain.Models.FilmType>
 	{
-		Task<Domain.Models.FilmType> GetTypeByNameAsync(string typeName);
+		Task<Domain.Models.FilmType?> GetTypeByNameAsync(string typeName);
 	}
 }

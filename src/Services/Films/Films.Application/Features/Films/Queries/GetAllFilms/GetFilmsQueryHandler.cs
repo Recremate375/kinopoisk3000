@@ -19,7 +19,8 @@ namespace Films.Application.Features.Films.Queries.GetAllFilms
 
         public async Task<List<FilmDTO>> Handle(GetFilmsQuery request, CancellationToken cancellationToken)
         {
-            var films = await _filmQueryRepository.GetAllAsync() ?? throw new NotFoundException($"Films not found");
+            var films = await _filmQueryRepository.GetAllAsync()
+                ?? throw new NotFoundException($"Films not found");
             var filmsDTO = _mapper.Map<List<FilmDTO>>(films);
 
             return filmsDTO;

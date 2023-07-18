@@ -18,7 +18,7 @@ namespace Films.Application.Features.Types.Commands.UpdateType
 
         public async Task Handle(UpdateTypeCommand request, CancellationToken cancellationToken)
         {
-            var type = await _typeQueryRepository.GetByIdAsync(request.Type.FilmTypeId) ?? throw new NotFoundException($"Invalid type model");
+            var type = await _typeQueryRepository.GetByIdAsync(request.Type.Id) ?? throw new NotFoundException($"Invalid type model");
             type.TypeName = request.Type.TypeName;
 
             _typeCommandRepository.Update(type);

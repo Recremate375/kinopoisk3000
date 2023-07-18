@@ -1,13 +1,11 @@
-﻿using Films.Application.Types.Commands.CreateType;
-using Films.Application.Types.Commands.DeleteType;
-using Films.Application.Types.Commands.UpdateType;
-using Films.Application.Types.Queries.GetAllTypes;
-using Films.Application.Types.Queries.GetTypeById;
+﻿using Films.Application.Features.Types.Commands.CreateType;
+using Films.Application.Features.Types.Commands.DeleteType;
+using Films.Application.Features.Types.Commands.UpdateType;
+using Films.Application.Features.Types.Queries.GetAllTypes;
+using Films.Application.Features.Types.Queries.GetTypeById;
 using Films.Domain.DTO;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Formats.Asn1;
 
 namespace Films.WebApi.Controllers
 {

@@ -1,15 +1,14 @@
-﻿using Films.Application.Films.Commands.CreateFilm;
-using Films.Application.Films.Commands.DeleteFilm;
-using Films.Application.Films.Commands.UpdateFilm;
-using Films.Application.Films.Queries.GetAllFilms;
-using Films.Application.Films.Queries.GetFilmById;
-using Films.Application.Films.Queries.GetFilmByName;
-using Films.Application.Films.Queries.GetFilmsByProductionYear;
-using Films.Application.Films.Queries.GetFilmsByType;
-using Films.Application.Types.Queries.GetTypeByName;
+﻿using Films.Application.Features.Films.Commands.CreateFilm;
+using Films.Application.Features.Films.Commands.DeleteFilm;
+using Films.Application.Features.Films.Commands.UpdateFilm;
+using Films.Application.Features.Films.Queries.GetAllFilms;
+using Films.Application.Features.Films.Queries.GetFilmById;
+using Films.Application.Features.Films.Queries.GetFilmByName;
+using Films.Application.Features.Films.Queries.GetFilmsByProductionYear;
+using Films.Application.Features.Films.Queries.GetFilmsByType;
+using Films.Application.Features.Types.Queries.GetTypeByName;
 using Films.Domain.DTO;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Films.WebApi.Controllers

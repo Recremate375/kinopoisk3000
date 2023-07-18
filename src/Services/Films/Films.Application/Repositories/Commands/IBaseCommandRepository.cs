@@ -2,11 +2,11 @@
 {
 	public interface IBaseCommandRepository<T> where T : class
 	{
-		Task CreateAsync(T entity);
+		Task CreateAsync(T? entity);
 
-		void Update(T entity);
+		void Update(T? entity);
 		
-		void Delete(T entity);
+		void Delete(T? entity);
 		
 		Task SaveAsync();
 	}

@@ -23,7 +23,7 @@ namespace Films.Application.Features.Types.Commands.CreateType
             await _typeCommandRepository.CreateAsync(type);
             await _typeCommandRepository.SaveAsync();
 
-            return type.FilmTypeId;
+            return type.Id;
         }
     }
 }
