@@ -7,16 +7,12 @@ namespace Identity.Infrastructure.Repositories
 {
 	public class RoleRepository : BaseRepository<Role>, IRoleRepository
 	{
-		private readonly IdentityDbContext context;
-
 		public RoleRepository(IdentityDbContext context) : base(context) 
-		{
-			this.context = context;
-		}
+		{ }
 
-		public async Task<Role> GetRoleByNameAsync(string roleName)
+		public async Task<Role?> GetRoleByNameAsync(string roleName)
 		{
-			return await context.Roles.FirstOrDefaultAsync(x => x.RoleName == roleName);
+			return await _context.Roles.AsNoTracking().FirstOrDefaultAsync(x => x.RoleName == roleName);
 		}
 
 	}

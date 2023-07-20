@@ -26,12 +26,14 @@ namespace Identity.Application.Features
             return rolesDTO;
         }
 
-        public async Task CreateRoleAsync(RoleDTO roleDTO)
+        public async Task<Domain.Models.Role> CreateRoleAsync(RoleDTO roleDTO)
         {
             var role = _mapper.Map<Role>(roleDTO);
 
             await _roleRepository.CreateAsync(role);
             await _roleRepository.SaveAsync();
+
+            return role;
         }
 
         public async Task UpdateRoleAsync(RoleDTO roleDTO)
@@ -53,5 +55,14 @@ namespace Identity.Application.Features
             _roleRepository.Delete(role);
 			await _roleRepository.SaveAsync();
 		}
-    }
+
+		public async Task<RoleDTO> GetRoleByIdAsync(int id)
+		{
+			var role = await _roleRepository.GetByIdAsync(id)
+                ?? throw new NotFoundException($"Role with Id ({id}) is not found.");
+			var roleDTO = _mapper.Map<RoleDTO>(role);
+
+			return roleDTO;
+		}
+	}
 }

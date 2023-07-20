@@ -17,6 +17,8 @@ builder.Services.AddSwaggerWithAuthentication();
 
 var app = builder.Build();
 
+app.UseCustomException();
+
 app.UseAuthentication();
 app.UseAuthorization();
 

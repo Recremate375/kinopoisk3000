@@ -6,10 +6,12 @@ namespace Identity.Application.IServices
 	{
 		Task<List<RoleDTO>> GetAllRolesAsync();
 
-		Task CreateRoleAsync(RoleDTO roleDTO);
+		Task<Domain.Models.Role> CreateRoleAsync(RoleDTO roleDTO);
 
 		Task UpdateRoleAsync(RoleDTO roleDTO);
 		
 		Task DeleteRoleAsync(int id);
+
+		Task<RoleDTO> GetRoleByIdAsync(int id);
 	}
 }

@@ -46,7 +46,7 @@ namespace Identity.Domain.Controllers
 		[HttpPut]
 		[ProducesResponseType(StatusCodes.Status200OK)]
 		[Authorize(Roles = "admin")]
-		public async Task<IActionResult> UpdateUser(UserDTO userDTO)
+		public async Task<IActionResult> UpdateUser([FromBody] UserDTO userDTO)
 		{
 			await _usersService.UpdateUserAsync(userDTO);
 
@@ -61,6 +61,15 @@ namespace Identity.Domain.Controllers
 			await _usersService.DeleteUserAsync(id);
 
 			return Ok();
+		}
+
+		[HttpGet]
+		[Route("{id:int}")]
+		[ProducesResponseType(StatusCodes.Status200OK)]
+		[Authorize(Roles = "admin")]
+		public async Task<IActionResult> GetUserByIdAsync(int id)
+		{
+			return Ok(await _usersService.GetUserByIdAsync(id));
 		}
 	}
 }

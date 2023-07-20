@@ -7,44 +7,46 @@ namespace Identity.Infrastructure.Repositories
 {
 	public class BaseRepository<T> : IBaseRepository<T> where T: BaseEntity
 	{
-		private readonly IdentityDbContext context;
-		private readonly DbSet<T> dbSet;
+		protected readonly IdentityDbContext _context;
+		private readonly DbSet<T> _dbSet;
 
 		public BaseRepository(IdentityDbContext context)
 		{
-			this.context = context;
-			dbSet = context.Set<T>();
+			_context = context;
+			_dbSet = context.Set<T>();
 		}
 
-		public async Task CreateAsync(T entity)
+		public async Task<T?> CreateAsync(T entity)
 		{
-			await dbSet.AddAsync(entity);
+			await _dbSet.AddAsync(entity);
+
+			return entity;
 		}
 
 		public void Delete(T entity)
 		{
-			dbSet.Remove(entity);
+			_dbSet.Remove(entity);
 		}
 
 		public async Task<List<T>> GetAllAsync()
 		{
-			return await dbSet.AsNoTracking().ToListAsync();
+			return await _dbSet.AsNoTracking().ToListAsync();
 		}
 
-		public async Task<T> GetByIdAsync(int id)
+		public async Task<T?> GetByIdAsync(int id)
 		{
-			return await dbSet.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
+			return await _dbSet.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
 		}
 
 		public async Task SaveAsync()
 		{
-			await context.SaveChangesAsync();
+			await _context.SaveChangesAsync();
 		}
 
 		public void Update(T entity)
 		{
-			dbSet.Attach(entity);
-			dbSet.Entry(entity).State = EntityState.Modified;
+			_dbSet.Attach(entity);
+			_dbSet.Entry(entity).State = EntityState.Modified;
 		}
 	}
 }

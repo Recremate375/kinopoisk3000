@@ -30,35 +30,18 @@ namespace Identity.Domain.Middlewares
 		{
 			HttpStatusCode statusCode;
 
-			switch (exception)
+			statusCode = exception switch
 			{
-				case BadRequestException:
-				{
-					statusCode = HttpStatusCode.BadRequest;
-					break;
-				}
-				case NotFoundException:
-				{
-					statusCode = HttpStatusCode.NotFound;
-					break;
-				}
-				case UnauthorizedException:
-				{
-					statusCode = HttpStatusCode.Unauthorized;
-					break;
-				}
+				BadRequestException => HttpStatusCode.BadRequest,
 
-				case ForbiddenException:
-				{
-					statusCode = HttpStatusCode.Forbidden;
-					break;
-				}
-				default:
-				{
-					statusCode = HttpStatusCode.InternalServerError;
-					break;
-				}
-			}
+				NotFoundException => HttpStatusCode.NotFound,
+				
+				UnauthorizedException => HttpStatusCode.Unauthorized,
+				
+				ForbiddenException => HttpStatusCode.Forbidden,
+				
+				_ => HttpStatusCode.InternalServerError
+			};
 
 			var response = new { error = exception.Message };
 			var jsonResponse = JsonConvert.SerializeObject(response);

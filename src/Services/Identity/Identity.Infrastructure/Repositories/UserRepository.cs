@@ -7,18 +7,12 @@ namespace Identity.Infrastructure.Repositories
 {
 	public class UserRepository : BaseRepository<User>, IUserRepository
 	{
-		private readonly IdentityDbContext _context;
-		private readonly IRoleRepository roleRepository;
+		public UserRepository(IdentityDbContext context) : base(context) 
+		{ }
 
-		public UserRepository(IdentityDbContext context, IRoleRepository roleRepository) : base(context) 
+		public async Task<User?> GetUserByEmailAsync(string email)
 		{
-			_context = context;
-			this.roleRepository = roleRepository;
-		}
-
-		public async Task<User> GetUserByEmailAsync(string email)
-		{
-			var user = await _context.Users.Include(x => x.UserRole).FirstOrDefaultAsync(x => x.Email == email);
+			var user = await _context.Users.Include(x => x.UserRole).AsNoTracking().FirstOrDefaultAsync(x => x.Email == email);
 
 			return user;
 		}

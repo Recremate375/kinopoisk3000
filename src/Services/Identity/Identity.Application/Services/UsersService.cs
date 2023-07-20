@@ -33,7 +33,7 @@ namespace Identity.Application.Features
             return token;
         }
 
-        public async Task CreateUserAsync(CreateUserDTO createUserDTO)
+        public async Task<User> CreateUserAsync(CreateUserDTO createUserDTO)
         {
             var user = _mapper.Map<User>(createUserDTO);
             var role = await _roleRepository.GetRoleByNameAsync("user");
@@ -42,6 +42,8 @@ namespace Identity.Application.Features
 
             await _userRepository.CreateAsync(user);
             await _userRepository.SaveAsync();
+
+            return user;
         }
 
         public async Task<List<UserDTO>> GetAllUsersAsync()
@@ -69,5 +71,14 @@ namespace Identity.Application.Features
             _userRepository.Delete(user);
             await _userRepository.SaveAsync();
         }
-    }
+
+		public async Task<UserDTO> GetUserByIdAsync(int id)
+		{
+            var user = await _userRepository.GetByIdAsync(id)
+                ?? throw new NotFoundException($"User with Id ({id}) is not found.");
+            var userDTO = _mapper.Map<UserDTO>(user);
+
+            return userDTO;
+		}
+	}
 }

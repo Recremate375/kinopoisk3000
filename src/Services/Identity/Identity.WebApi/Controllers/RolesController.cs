@@ -8,50 +8,53 @@ namespace Identity.Domain.Controllers
 {
 	[Route("api/[controller]")]
 	[ApiController]
-
+	[Authorize(Roles = "admin")]
 	public class RolesController : ControllerBase
 	{
-		private readonly IRoleService rolesService;
+		private readonly IRoleService _rolesService;
 
 		public RolesController(IRoleService roleService)
 		{
-			this.rolesService = roleService;
+			_rolesService = roleService;
 		}
 
-		[Authorize(Roles = "admin")]
 		[HttpGet]
 		public async Task<ActionResult<IEnumerable<Role>>> GetAllRoles()
 		{
-			var roles = await rolesService.GetAllRolesAsync();
+			var roles = await _rolesService.GetAllRolesAsync();
 			
 			return Ok(roles);
 		}
 
-		[Authorize(Roles = "admin")]
 		[HttpPost]
 		public async Task<ActionResult<Role>> AddNewRole([FromBody] RoleDTO roleDTO)
 		{
-			await rolesService.CreateRoleAsync(roleDTO);
+			var result = await _rolesService.CreateRoleAsync(roleDTO);
 
-			return Ok(roleDTO);
+			return Ok(result);
 		}
 
-		[Authorize(Roles = "admin")]
 		[HttpPut]
 		public async Task<ActionResult<Role>> ChangeRole([FromBody] RoleDTO roleDTO)
 		{
-			await rolesService.UpdateRoleAsync(roleDTO);
+			await _rolesService.UpdateRoleAsync(roleDTO);
 
 			return Ok(roleDTO);
 		}
 
-		[Authorize(Roles = "admin")]
 		[HttpDelete]
 		public async Task<IActionResult> DeleteRole(int id)
 		{
-			await rolesService.DeleteRoleAsync(id);
+			await _rolesService.DeleteRoleAsync(id);
 
 			return Ok();
+		}
+
+		[HttpGet]
+		[Route("{id:int}")]
+		public async Task<IActionResult> GetRoleById([FromRoute] int id)
+		{
+			return Ok(await _rolesService.GetRoleByIdAsync(id));
 		}
 	}
 }

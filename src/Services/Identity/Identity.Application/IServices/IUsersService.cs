@@ -1,4 +1,5 @@
 ﻿using Identity.Domain.DTO;
+using Identity.Domain.Models;
 
 namespace Identity.Application.IServices
 {
@@ -6,12 +7,14 @@ namespace Identity.Application.IServices
 	{
 		Task<string> GetAuthenticationTokenAsync(LoginUserDTO loginUserDTO);
 
-		Task CreateUserAsync(CreateUserDTO createUserDTO);
+		Task<User> CreateUserAsync(CreateUserDTO createUserDTO);
 		
 		Task<List<UserDTO>> GetAllUsersAsync();
 		
 		Task UpdateUserAsync(UserDTO userDTO);
 		
 		Task DeleteUserAsync(int id);
+
+		Task<UserDTO> GetUserByIdAsync(int id);
 	}
 }
