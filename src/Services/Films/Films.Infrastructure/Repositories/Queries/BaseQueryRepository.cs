@@ -1,4 +1,5 @@
-﻿using AutoMapper.QueryableExtensions;
+﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Films.Application.Repositories.Queryes;
 using Films.Domain.DTO;
 using Films.Domain.Models;
@@ -11,16 +12,18 @@ namespace Films.Infrastructure.Repositories.Queries
 	{
 		protected readonly FilmsDbContext _context;
 		private readonly DbSet<T?> _dbSet;
+		private readonly IMapper _mapper;
 
-		public BaseQueryRepository(FilmsDbContext context)
+		public BaseQueryRepository(FilmsDbContext context, IMapper mapper)
 		{
 			_context = context;
 			_dbSet = context.Set<T?>();
+			_mapper = mapper;
 		}
 
-		public async Task<List<T?>> GetAllAsync<TDto>() where TDto : class
+		public async Task<List<TDto>> GetAllAsync<TDto>() where TDto : BaseDTOEntity
 		{
-			return await _dbSet.AsNoTracking().ToListAsync(); //ProjectTo()
+			return await _dbSet.AsNoTracking().ProjectTo<TDto>(_mapper.ConfigurationProvider).ToListAsync();
 		}
 
 		public async Task<T?> GetByIdAsync(int id)

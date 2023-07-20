@@ -1,4 +1,5 @@
 using Films.WebApi.ExtensionMethods;
+using Films.WebApi.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +14,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+app.UseCustomException();
 
 if (app.Environment.IsDevelopment())
 {

@@ -9,21 +9,18 @@ namespace Films.Application.Features.Films.Queries.GetAllFilms
     public class GetFilmsQueryHandler : IRequestHandler<GetFilmsQuery, List<FilmDTO>>
     {
         private readonly IFilmQueryRepository _filmQueryRepository;
-        private readonly IMapper _mapper;
 
-        public GetFilmsQueryHandler(IFilmQueryRepository filmQueryRepository, IMapper mapper)
+        public GetFilmsQueryHandler(IFilmQueryRepository filmQueryRepository)
         {
             _filmQueryRepository = filmQueryRepository;
-            _mapper = mapper;
         }
 
         public async Task<List<FilmDTO>> Handle(GetFilmsQuery request, CancellationToken cancellationToken)
         {
-            var films = await _filmQueryRepository.GetAllAsync()
+            var films = await _filmQueryRepository.GetAllAsync<FilmDTO>()
                 ?? throw new NotFoundException($"Films not found");
-            var filmsDTO = _mapper.Map<List<FilmDTO>>(films);
 
-            return filmsDTO;
+            return films;
         }
     }
 }

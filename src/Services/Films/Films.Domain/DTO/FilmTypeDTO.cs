@@ -1,8 +1,7 @@
 ﻿namespace Films.Domain.DTO
 {
-	public class FilmTypeDTO
+	public class FilmTypeDTO : BaseDTOEntity
 	{
-		public int Id { get; set; }
 		public string? TypeName { get; set; }
 	}
 }
