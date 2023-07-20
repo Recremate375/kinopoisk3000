@@ -72,7 +72,7 @@ namespace Identity.Application.Features
             await _userRepository.SaveAsync();
         }
 
-		public async Task<UserDTO> GetUserByIdAsync(int id)
+		public async Task<UserDTO?> GetUserByIdAsync(int id)
 		{
             var user = await _userRepository.GetByIdAsync(id)
                 ?? throw new NotFoundException($"User with Id ({id}) is not found.");

@@ -56,7 +56,7 @@ namespace Identity.Application.Features
 			await _roleRepository.SaveAsync();
 		}
 
-		public async Task<RoleDTO> GetRoleByIdAsync(int id)
+		public async Task<RoleDTO?> GetRoleByIdAsync(int id)
 		{
 			var role = await _roleRepository.GetByIdAsync(id)
                 ?? throw new NotFoundException($"Role with Id ({id}) is not found.");
