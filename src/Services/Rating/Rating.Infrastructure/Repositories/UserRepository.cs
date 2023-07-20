@@ -12,7 +12,7 @@ namespace Rating.Infrastructure.Repositories
 
 		}
 
-		public async Task<User> GetUserByLoginAsync(string login)
+		public async Task<User?> GetUserByLoginAsync(string login)
 		{
 			return await _context.Users.FirstOrDefaultAsync(x => x.Login == login);
 		}

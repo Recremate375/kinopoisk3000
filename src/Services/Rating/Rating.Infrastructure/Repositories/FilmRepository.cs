@@ -12,7 +12,7 @@ namespace Rating.Infrastructure.Repositories
 
 		}
 
-		public Task<Film> GetFilmByNameAsync(string filmName)
+		public Task<Film?> GetFilmByNameAsync(string filmName)
 		{
 			return _context.Films.AsNoTracking().FirstOrDefaultAsync(x => x.FilmName == filmName);
 		}

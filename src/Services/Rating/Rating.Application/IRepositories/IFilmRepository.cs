@@ -4,6 +4,6 @@ namespace Rating.Application.IRepositories
 {
 	public interface IFilmRepository : IBaseRepository<Film>
 	{
-		Task<Film> GetFilmByNameAsync(string filmName);
+		Task<Film?> GetFilmByNameAsync(string filmName);
 	}
 }
