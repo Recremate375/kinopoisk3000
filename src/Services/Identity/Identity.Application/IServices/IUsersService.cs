@@ -7,7 +7,7 @@ namespace Identity.Application.IServices
 	{
 		Task<string> GetAuthenticationTokenAsync(LoginUserDTO loginUserDTO);
 
-		Task<User> CreateUserAsync(CreateUserDTO createUserDTO);
+		Task<User?> CreateUserAsync(CreateUserDTO createUserDTO);
 		
 		Task<List<UserDTO>> GetAllUsersAsync();
 		
@@ -15,6 +15,6 @@ namespace Identity.Application.IServices
 		
 		Task DeleteUserAsync(int id);
 
-		Task<UserDTO> GetUserByIdAsync(int id);
+		Task<UserDTO?> GetUserByIdAsync(int id);
 	}
 }
