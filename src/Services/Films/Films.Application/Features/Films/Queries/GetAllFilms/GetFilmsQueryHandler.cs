@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Films.Application.Repositories.Queryes;
+﻿using Films.Application.Repositories.Queryes;
 using Films.Domain.DTO;
 using Films.Domain.Exceptions;
 using MediatR;
