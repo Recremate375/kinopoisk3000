@@ -27,16 +27,12 @@ namespace Films.WebApi.Middleware
 		}
 		private static Task HandleExceptionAsync(HttpContext context, Exception exception)
 		{
-			var statusCode = HttpStatusCode.InternalServerError;
-
-			if (exception is BadRequestException)
+			var statusCode = exception switch
 			{
-				statusCode = HttpStatusCode.BadRequest;
-			}
-			else if (exception is NotFoundException)
-			{
-				statusCode = HttpStatusCode.NotFound;
-			}
+				BadRequestException => HttpStatusCode.BadRequest,
+				NotFoundException => HttpStatusCode.NotFound,
+				_ => HttpStatusCode.InternalServerError
+			};
 
 			var response = new { error = exception.Message };
 			var jsonResponse = JsonConvert.SerializeObject(response);
