@@ -25,9 +25,9 @@ namespace Rating.WebApi.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateRatingAsync([FromBody]CreateRatingDTO ratingDTO)
         {
-            await _ratingService.CreateRatingAsync(ratingDTO);
+            var rating = await _ratingService.CreateRatingAsync(ratingDTO);
 
-            return StatusCode(201);
+            return StatusCode(201, rating);
         }
 
         [HttpGet]
@@ -41,7 +41,7 @@ namespace Rating.WebApi.Controllers
         {
             await _ratingService.DeleteRating(id);
 
-            return Ok();
+            return NoContent();
         }
 
         [HttpPut]
@@ -49,7 +49,7 @@ namespace Rating.WebApi.Controllers
         {
             await _ratingService.UpdateRating(ratingDTO);
 
-            return Ok();
+            return NoContent();
         }
     }
 }

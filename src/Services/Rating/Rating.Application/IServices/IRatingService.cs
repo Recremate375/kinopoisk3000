@@ -7,7 +7,7 @@ namespace Rating.Application.IServices
 	{
 		Task<List<RatingDTO>> GetAllRatingsAsync();
 
-		Task CreateRatingAsync(CreateRatingDTO ratingDTO);
+		Task<Domain.Models.Rating> CreateRatingAsync(CreateRatingDTO ratingDTO);
 
 		Task<float> GetRatingByFilmName(string filmName);
 

@@ -26,7 +26,7 @@ namespace Rating.Infrastructure.Repositories
 			_dbSet.Remove(entity);
 		}
 
-		public async Task<List<T?>> GetAllAsync()
+		public async Task<List<T>> GetAllAsync()
 		{
 			return await _dbSet.AsNoTracking().ToListAsync();
 		}

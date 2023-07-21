@@ -1,4 +1,6 @@
 ﻿using FluentValidation;
+using MediatR;
+using Rating.Application.Pipelines;
 using Rating.Domain.DTOs;
 using Rating.Domain.Validators;
 
@@ -10,6 +12,8 @@ namespace Rating.WebApi.Extensions
 		{
 			services.AddScoped<IValidator<RatingDTO>, RatingValidator>()
 				.AddScoped<IValidator<CreateRatingDTO>, CreateRatingValidator>();
+
+			services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 
 			return services;
 		}

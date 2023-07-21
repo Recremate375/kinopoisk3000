@@ -22,7 +22,7 @@ namespace Rating.Application.Services
 			_mapper = mapper;
         }
 
-        public async Task CreateRatingAsync(CreateRatingDTO ratingDTO)
+        public async Task<Domain.Models.Rating> CreateRatingAsync(CreateRatingDTO ratingDTO)
 		{
 			var film = await _filmRepository.GetFilmByNameAsync(ratingDTO.FilmName)
 				?? throw new NotFoundException("Not Found this filmName!");
@@ -38,6 +38,8 @@ namespace Rating.Application.Services
 
 			await _ratingRepository.CreateAsync(rating);
 			await _ratingRepository.SaveAsync();
+
+			return rating;
 		}
 
 		public async Task DeleteRating(int id)
@@ -71,6 +73,8 @@ namespace Rating.Application.Services
 				?? throw new NotFoundException("Can not found this rating!");
 
 			rating = _mapper.Map<Domain.Models.Rating>(ratingDTO);
+
+			_ratingRepository.Update(rating);
 			await _ratingRepository.SaveAsync();
 		}
 	}
