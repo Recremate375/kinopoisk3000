@@ -1,11 +1,6 @@
 ﻿using Films.Domain.Models;
 using Films.Infrastructure.Context.Configurations;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Films.Infrastructure.Context
 {
