@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Rating.Domain.Models;
+using Rating.Infrastructure.Context.Configurations;
 
 namespace Rating.Infrastructure.Context
 {
@@ -16,8 +17,7 @@ namespace Rating.Infrastructure.Context
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
-			modelBuilder.Entity<Film>().HasIndex(f => f.FilmName).IsUnique();
-			modelBuilder.Entity<User>().HasIndex(u => u.Login).IsUnique();
+			modelBuilder.ApplyConfiguration(new UserConfiguration()).ApplyConfiguration(new FilmConfiguration());
 
 			base.OnModelCreating(modelBuilder);
 		}

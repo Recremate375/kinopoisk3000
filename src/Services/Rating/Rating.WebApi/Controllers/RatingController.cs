@@ -27,7 +27,7 @@ namespace Rating.WebApi.Controllers
         {
             var rating = await _ratingService.CreateRatingAsync(ratingDTO);
 
-            return StatusCode(201, rating);
+            return Created("GetRatingByFilmName", rating.RatingFilm.FilmName);
         }
 
         [HttpGet]
