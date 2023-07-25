@@ -19,7 +19,7 @@ namespace Identity.Domain.Controllers
 		}
 
 		[HttpGet]
-		public async Task<ActionResult<IEnumerable<Role>>> GetAllRoles()
+		public async Task<IActionResult> GetAllRoles()
 		{
 			var roles = await _rolesService.GetAllRolesAsync();
 			
@@ -27,7 +27,7 @@ namespace Identity.Domain.Controllers
 		}
 
 		[HttpPost]
-		public async Task<ActionResult<Role>> AddNewRole([FromBody] RoleDTO roleDTO)
+		public async Task<IActionResult> AddNewRole([FromBody] RoleDTO roleDTO)
 		{
 			var result = await _rolesService.CreateRoleAsync(roleDTO);
 
@@ -35,7 +35,7 @@ namespace Identity.Domain.Controllers
 		}
 
 		[HttpPut]
-		public async Task<ActionResult<Role>> ChangeRole([FromBody] RoleDTO roleDTO)
+		public async Task<IActionResult> ChangeRole([FromBody] RoleDTO roleDTO)
 		{
 			await _rolesService.UpdateRoleAsync(roleDTO);
 
