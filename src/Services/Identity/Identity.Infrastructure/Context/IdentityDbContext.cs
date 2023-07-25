@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Identity.Domain.Models;
-using Microsoft.IdentityModel.Abstractions;
+using Identity.Infrastructure.Context.Configurations;
 
 namespace Identity.Infrastructure.Context
 {
@@ -14,8 +14,7 @@ namespace Identity.Infrastructure.Context
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
-			modelBuilder.Entity<User>().HasIndex(u => u.Email).IsUnique();
-			modelBuilder.Entity<Role>().HasIndex(u => u.RoleName).IsUnique();
+			modelBuilder.ApplyConfiguration(new UserConfiguration()).ApplyConfiguration(new RoleConfiguration());
 
 			base.OnModelCreating(modelBuilder);
 		}
