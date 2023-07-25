@@ -1,4 +1,5 @@
-﻿using Films.Application.Repositories.Queryes;
+﻿using AutoMapper;
+using Films.Application.Repositories.Queryes;
 using Films.Domain.Models;
 using Films.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
@@ -7,7 +8,7 @@ namespace Films.Infrastructure.Repositories.Queries
 {
 	public class FilmQueryRepository : BaseQueryRepository<Film?>, IFilmQueryRepository
 	{
-		public FilmQueryRepository(FilmsDbContext context) : base(context)
+		public FilmQueryRepository(FilmsDbContext context, IMapper mapper) : base(context, mapper)
 		{
 
 		}

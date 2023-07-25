@@ -21,7 +21,7 @@ namespace Films.WebApi.Controllers
 		}
 
 		[HttpGet]
-		public async Task<ActionResult<List<FilmTypeDTO>>> GetTypesListAsync()
+		public async Task<IActionResult> GetTypesListAsync()
 		{
 			var types = await _mediator.Send(new GetAllTypesQuery());
 
@@ -30,7 +30,7 @@ namespace Films.WebApi.Controllers
 
 		[HttpGet]
 		[Route("{typeId:int}")]
-		public async Task<ActionResult<FilmTypeDTO>> GetTypeByIdAsync([FromRoute]int typeId)
+		public async Task<IActionResult> GetTypeByIdAsync([FromRoute]int typeId)
 		{
 			var type = await _mediator.Send(new GetTypeByIdQuery() { Id = typeId });
 
@@ -38,27 +38,27 @@ namespace Films.WebApi.Controllers
 		}
 
 		[HttpPost]
-		public async Task<ActionResult> CreateTypeAsync([FromBody] CreateTypeDTO createTypeDTO)
+		public async Task<IActionResult> CreateTypeAsync([FromBody] CreateTypeDTO createTypeDTO)
 		{
 			await _mediator.Send(new CreateTypeCommand() { Type = createTypeDTO });
 
-			return StatusCode(201);
+			return Created("GetTypeByIdAsync", createTypeDTO);
 		}
 
 		[HttpPut]
-		public async Task<ActionResult> UpdateFilmType([FromBody] FilmTypeDTO typeDTO)
+		public async Task<IActionResult> UpdateFilmType([FromBody] FilmTypeDTO typeDTO)
 		{
 			await _mediator.Send(new UpdateTypeCommand() { Type = typeDTO });
 
-			return StatusCode(200);
+			return Ok();
 		}
 
 		[HttpDelete]
-		public async Task<ActionResult> DeleteFilmType(int typeId)
+		public async Task<IActionResult> DeleteFilmType(int typeId)
 		{
 			await _mediator.Send(new DeleteTypeCommand() { Id = typeId });
 
-			return StatusCode(200);
+			return Ok();
 		}
 	}
 }

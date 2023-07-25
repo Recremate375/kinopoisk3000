@@ -1,4 +1,5 @@
 ﻿using Films.Domain.Models;
+using Films.Infrastructure.Context.Configurations;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -14,5 +15,12 @@ namespace Films.Infrastructure.Context
 
 		public DbSet<Film> Films { get; set; }
 		public DbSet<FilmType> Types { get; set; }
+
+		protected override void OnModelCreating(ModelBuilder modelBuilder)
+		{
+			modelBuilder.ApplyConfiguration(new FilmConfiguration()).ApplyConfiguration(new FilmTypeConfiguration());
+
+			base.OnModelCreating(modelBuilder);
+		}
 	}
 }

@@ -25,7 +25,7 @@ namespace Films.WebApi.Controllers
         }
 
 		[HttpGet]
-		public async Task<ActionResult<List<FilmDTO>>> GetAllFilms()
+		public async Task<IActionResult> GetAllFilms()
 		{
 			var films = await _mediator.Send(new GetFilmsQuery());
 
@@ -34,7 +34,7 @@ namespace Films.WebApi.Controllers
 
 		[HttpGet]
 		[Route("{id:int}")]
-		public async Task<ActionResult<FilmDTO>> GetFilmById(int id)
+		public async Task<IActionResult> GetFilmById(int id)
 		{
 			var film = await _mediator.Send(new GetFilmByIdQuery() { FilmId = id });
 
@@ -43,7 +43,7 @@ namespace Films.WebApi.Controllers
 
 		[HttpGet]
 		[Route("{name:alpha}")]
-		public async Task<ActionResult<FilmDTO>> GetFilmByName(string name)
+		public async Task<IActionResult> GetFilmByName(string name)
 		{
 			var film = await _mediator.Send(new GetFilmByNameQuery() { FilmName = name });
 
@@ -52,7 +52,7 @@ namespace Films.WebApi.Controllers
 
 		[HttpGet]
 		[Route("{productionTime:DateTime}")]
-		public async Task<ActionResult<List<FilmDTO>>> GetFilmsByProductionYear(DateTime productionTime)
+		public async Task<IActionResult> GetFilmsByProductionYear(DateTime productionTime)
 		{
 			var film = await _mediator.Send(new GetFilmsByProductionYearQuery() { ProductionYear = productionTime });
 
@@ -61,7 +61,7 @@ namespace Films.WebApi.Controllers
 
 		[HttpPost]
 		[Route("getFilmsByType")]
-		public async Task<ActionResult<List<FilmDTO>>> GetFilmsByType(FilmTypeDTO typeName)
+		public async Task<IActionResult> GetFilmsByType(FilmTypeDTO typeName)
 		{
 			var films = await _mediator.Send(new GetFilmsByTypeQuery() { FilmTypeDTO = typeName });
 
@@ -69,15 +69,15 @@ namespace Films.WebApi.Controllers
 		}
 
 		[HttpPost]
-		public async Task<ActionResult> CreateFilmAsync([FromBody] CreateFilmDTO createFilmDTO)
+		public async Task<IActionResult> CreateFilmAsync([FromBody] CreateFilmDTO createFilmDTO)
 		{
 			await _mediator.Send(new CreateFilmCommand() { CreateFilmDTO = createFilmDTO });
 
-			return StatusCode(201);
+			return Created("GetFilmByName", createFilmDTO.FilmName);
 		}
 
 		[HttpPut]
-		public async Task<ActionResult> UpdateFilmAsync([FromBody] UpdateFilmDTO updateFilmDTO, int id)
+		public async Task<IActionResult> UpdateFilmAsync([FromBody] UpdateFilmDTO updateFilmDTO, int id)
 		{
 			await _mediator.Send(new UpdateFilmCommand() { FilmId = id, UpdateFilm = updateFilmDTO });
 
@@ -85,7 +85,7 @@ namespace Films.WebApi.Controllers
 		}
 
 		[HttpDelete]
-		public async Task<ActionResult> DeleteFilmAsync(int id)
+		public async Task<IActionResult> DeleteFilmAsync(int id)
 		{
 			await _mediator.Send(new DeleteFilmCommand() { Id = id });
 
