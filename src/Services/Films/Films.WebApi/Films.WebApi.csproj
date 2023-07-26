@@ -29,7 +29,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Identity\Identity.Application\Identity.Application.csproj" />
     <ProjectReference Include="..\Films.Domain\Films.Domain.csproj" />
     <ProjectReference Include="..\Films.Infrastructure\Films.Infrastructure.csproj" />
   </ItemGroup>

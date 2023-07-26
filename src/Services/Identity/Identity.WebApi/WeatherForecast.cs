@@ -1,4 +1,4 @@
-namespace Identity.Application
+namespace Identity.WebApi
 {
 	public class WeatherForecast
 	{

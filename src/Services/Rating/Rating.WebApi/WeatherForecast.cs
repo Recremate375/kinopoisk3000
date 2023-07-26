@@ -1,4 +1,4 @@
-namespace Rating.Application
+namespace Rating.WebApi
 {
 	public class WeatherForecast
 	{

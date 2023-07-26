@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace Rating.Application.Controllers
+namespace Rating.WebApi.Controllers
 {
 	[ApiController]
 	[Route("[controller]")]
