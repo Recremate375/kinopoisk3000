@@ -11,27 +11,25 @@ namespace Films.Application.Features.Films.Commands.UpdateFilm
     {
         private readonly IFilmCommandRepository _filmCommandRepository;
         private readonly IFilmQueryRepository _filmQueryRepository;
-        private readonly ITypeQueryRepository _typeQueryRepository;
         private readonly IMapper _mapper;
 
         public UpdateFilmCommandHandler(IFilmCommandRepository filmCommandRepository,
-            IFilmQueryRepository filmQueryRepository, IMapper mapper, ITypeQueryRepository typeQueryRepository)
+            IFilmQueryRepository filmQueryRepository, IMapper mapper)
         {
             _filmCommandRepository = filmCommandRepository;
             _filmQueryRepository = filmQueryRepository;
             _mapper = mapper;
-            _typeQueryRepository = typeQueryRepository;
         }
 
         public async Task Handle(UpdateFilmCommand request,
             CancellationToken cancellationToken)
         {
-            var entity = await _filmQueryRepository.GetByIdAsync(request.FilmId) 
+            var film = await _filmQueryRepository.GetByIdAsync(request.FilmId) 
                 ?? throw new NotFoundException($"Entity {request.UpdateFilm.FilmName} not found!");
 
-            entity = _mapper.Map<Film>(request.UpdateFilm);
+            film = _mapper.Map<Film>(request.UpdateFilm);
 
-            _filmCommandRepository.Update(entity);
+            _filmCommandRepository.Update(film);
             await _filmCommandRepository.SaveAsync();
         }
     }
