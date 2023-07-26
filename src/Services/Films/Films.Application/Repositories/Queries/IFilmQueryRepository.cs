@@ -6,7 +6,7 @@ namespace Films.Application.Repositories.Queryes
 	{
 		Task<Film?> GetFilmByNameAsync(string filmName);
 		
-		Task<List<Film?>> GetFilmsByTypeAsync(Domain.Models.FilmType filmtype);
+		Task<List<Film?>> GetFilmsByTypeIdAsync(int filmTypeId);
 		
 		Task<List<Film?>> GetFilmsByProductionYear(DateTime filmDate);
 	}

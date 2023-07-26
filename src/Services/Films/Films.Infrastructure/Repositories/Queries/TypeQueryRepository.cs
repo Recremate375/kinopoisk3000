@@ -14,7 +14,7 @@ namespace Films.Infrastructure.Repositories.Queries
 
 		public async Task<Domain.Models.FilmType?> GetTypeByNameAsync(string typeName)
 		{
-			return await _context.Types.AsNoTracking().FirstOrDefaultAsync(x => x.TypeName == typeName);
+			return await _context.Types.AsNoTracking().FirstOrDefaultAsync(type => type.TypeName == typeName);
 		}
 	}
 }

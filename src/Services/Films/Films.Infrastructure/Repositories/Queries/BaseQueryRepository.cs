@@ -28,7 +28,7 @@ namespace Films.Infrastructure.Repositories.Queries
 
 		public async Task<T?> GetByIdAsync(int id)
 		{
-			return await _dbSet.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
+			return await _dbSet.AsNoTracking().FirstOrDefaultAsync(entity => entity.Id == id);
 		}
 	}
 }

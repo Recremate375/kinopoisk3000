@@ -15,22 +15,22 @@ namespace Films.Infrastructure.Repositories.Queries
 
 		public new async Task<List<Film?>> GetAllAsync()
 		{
-			return await _context.Films.Include(x => x.Type).AsNoTracking().ToListAsync();
+			return await _context.Films.Include(film => film.Type).AsNoTracking().ToListAsync();
 		}
 
 		public async Task<Film?> GetFilmByNameAsync(string filmName)
 		{
-			return await _context.Films.AsNoTracking().FirstOrDefaultAsync(x => x.FilmName == filmName);
+			return await _context.Films.AsNoTracking().FirstOrDefaultAsync(film => film.FilmName == filmName);
 		}
 
 		public async Task<List<Film?>> GetFilmsByProductionYear(DateTime filmDate)
 		{
-			return await _context.Films.AsNoTracking().Where(x => x.ProductionYear == filmDate).ToListAsync();
+			return await _context.Films.AsNoTracking().Where(film => film.ProductionYear == filmDate).ToListAsync();
 		}
 
-		public async Task<List<Film?>> GetFilmsByTypeAsync(FilmType filmtype)
+		public async Task<List<Film?>> GetFilmsByTypeIdAsync(int filmTypeId)
 		{
-			return await _context.Films.AsNoTracking().Where(x => x.Type == filmtype).ToListAsync();
+			return await _context.Films.AsNoTracking().Where(film => film.Type.Id == filmTypeId).ToListAsync();
 		}
 	}
 }
