@@ -5,13 +5,13 @@ services:
     image: ${DOCKER_REGISTRY-}filmsapplication
     build:
       context: .
-      dockerfile: src/Services/Films/Films.Application/Dockerfile
+      dockerfile: src/Services/Films/Films.WebApi/Dockerfile
 
   identity.application:
     image: ${DOCKER_REGISTRY-}identityapplication
     build:
       context: .
-      dockerfile: src/Services/Identity/Identity.Application/Dockerfile
+      dockerfile: src/Services/Identity/Identity.WebApi/Dockerfile
 
 
   rating.application:
