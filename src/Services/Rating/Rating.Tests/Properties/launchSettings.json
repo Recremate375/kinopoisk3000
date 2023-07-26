@@ -1,12 +1,12 @@
 {
   "profiles": {
-    "Identity.Application": {
+    "Rating.Tests": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "https://localhost:58729;http://localhost:58730"
+      "applicationUrl": "https://localhost:51351;http://localhost:51358"
     }
   }
 }

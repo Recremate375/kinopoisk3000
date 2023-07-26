@@ -1,12 +1,12 @@
 {
   "profiles": {
-    "Identity.Application": {
+    "Films.Infrastructure": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "https://localhost:58729;http://localhost:58730"
+      "applicationUrl": "https://localhost:62373;http://localhost:62374"
     }
   }
 }
