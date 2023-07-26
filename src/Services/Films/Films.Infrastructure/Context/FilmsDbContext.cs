@@ -1,6 +1,7 @@
 ﻿using Films.Domain.Models;
 using Films.Infrastructure.Context.Configurations;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 namespace Films.Infrastructure.Context
 {
@@ -13,9 +14,9 @@ namespace Films.Infrastructure.Context
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
-			modelBuilder.ApplyConfiguration(new FilmConfiguration()).ApplyConfiguration(new FilmTypeConfiguration());
-
 			base.OnModelCreating(modelBuilder);
+
+			modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 		}
 	}
 }

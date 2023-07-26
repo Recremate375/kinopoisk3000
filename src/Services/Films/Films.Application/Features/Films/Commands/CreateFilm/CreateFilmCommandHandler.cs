@@ -21,9 +21,7 @@ namespace Films.Application.Features.Films.Commands.CreateFilm
 
         public async Task<Film> Handle(CreateFilmCommand request, CancellationToken cancellationToken)
         {
-            var type = await _typeQueryRepository.GetByIdAsync(request.CreateFilmDTO.Type.Id);
             var film = _mapper.Map<Film>(request.CreateFilmDTO);
-            film.Type = type;
 
             await _filmCommandRepository.CreateAsync(film);
             await _filmCommandRepository.SaveAsync();

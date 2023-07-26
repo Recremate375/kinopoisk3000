@@ -73,7 +73,7 @@ namespace Films.WebApi.Controllers
 		{
 			await _mediator.Send(new CreateFilmCommand() { CreateFilmDTO = createFilmDTO });
 
-			return Created("GetFilmByName", createFilmDTO.FilmName);
+			return Created(nameof(GetFilmByName), createFilmDTO.FilmName);
 		}
 
 		[HttpPut]

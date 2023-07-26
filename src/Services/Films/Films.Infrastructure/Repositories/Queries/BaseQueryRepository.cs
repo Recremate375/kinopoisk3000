@@ -11,7 +11,7 @@ namespace Films.Infrastructure.Repositories.Queries
 	public class BaseQueryRepository<T> : IBaseQueryRepository<T> where T : BaseEntity
 	{
 		protected readonly FilmsDbContext _context;
-		private readonly DbSet<T?> _dbSet;
+		private readonly DbSet<T> _dbSet;
 		private readonly IMapper _mapper;
 
 		public BaseQueryRepository(FilmsDbContext context, IMapper mapper)

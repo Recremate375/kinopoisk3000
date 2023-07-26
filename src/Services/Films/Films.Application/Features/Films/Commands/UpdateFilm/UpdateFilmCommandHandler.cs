@@ -26,10 +26,8 @@ namespace Films.Application.Features.Films.Commands.UpdateFilm
         public async Task Handle(UpdateFilmCommand request,
             CancellationToken cancellationToken)
         {
-            var type = await _typeQueryRepository.GetTypeByNameAsync(request.UpdateFilm.Type.TypeName);
             var entity = await _filmQueryRepository.GetByIdAsync(request.FilmId) 
                 ?? throw new NotFoundException($"Entity {request.UpdateFilm.FilmName} not found!");
-            entity.Type = type;
 
             entity = _mapper.Map<Film>(request.UpdateFilm);
 
