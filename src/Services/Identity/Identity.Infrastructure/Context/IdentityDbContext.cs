@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Identity.Domain.Models;
 using Identity.Infrastructure.Context.Configurations;
+using System.Reflection;
 
 namespace Identity.Infrastructure.Context
 {
@@ -14,9 +15,9 @@ namespace Identity.Infrastructure.Context
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
-			modelBuilder.ApplyConfiguration(new UserConfiguration()).ApplyConfiguration(new RoleConfiguration());
-
 			base.OnModelCreating(modelBuilder);
+
+			modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 		}
 	}
 }

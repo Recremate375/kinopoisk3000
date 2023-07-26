@@ -31,7 +31,7 @@ namespace Identity.Domain.Controllers
 		{
 			await _usersService.CreateUserAsync(createUserDTO);
 
-			return CreatedAtAction("GetUserById", createUserDTO);
+			return CreatedAtAction(nameof(GetUserByIdAsync), createUserDTO);
 		}
 
 		[HttpGet]

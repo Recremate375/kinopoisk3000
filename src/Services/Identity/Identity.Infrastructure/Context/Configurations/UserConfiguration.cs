@@ -9,6 +9,8 @@ namespace Identity.Infrastructure.Context.Configurations
 		public void Configure(EntityTypeBuilder<User> builder)
 		{
 			builder.HasIndex(u => u.Email).IsUnique();
+			builder.HasOne(user => user.UserRole).WithMany(user => user.Users)
+				.HasForeignKey(user => user.RoleId).IsRequired();
 		}
 	}
 }
