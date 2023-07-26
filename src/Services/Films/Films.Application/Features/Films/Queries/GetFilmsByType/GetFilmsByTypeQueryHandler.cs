@@ -19,7 +19,8 @@ namespace Films.Application.Features.Films.Queries.GetFilmsByType
 
         public async Task<List<FilmDTO>> Handle(GetFilmsByTypeQuery request, CancellationToken cancellationToken)
         {
-            var films = await _filmQueryRepository.GetFilmsByTypeIdAsync(type) ?? throw new NotFoundException($"Films with {type.TypeName} type not found");
+            var films = await _filmQueryRepository.GetFilmsByTypeIdAsync(request.FilmTypeDTO.Id) 
+                ?? throw new NotFoundException($"Films with {request.FilmTypeDTO.TypeName} type not found");
             var filmDTO = _mapper.Map<List<FilmDTO>>(films);
 
             return filmDTO;
