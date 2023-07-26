@@ -1,27 +1,40 @@
 ﻿using Films.Application.Repositories.Commands;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Films.Domain.Models;
+using Films.Infrastructure.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace Films.Infrastructure.Repositories.Commands
 {
-	public class BaseCommandRepository<T> : IBaseCommandRepository<T> where T : class
+	public class BaseCommandRepository<T> : IBaseCommandRepository<T> where T : BaseEntity
 	{
-		public Task<T> AddAsync(T entity)
+		protected readonly FilmsDbContext _context;
+		private readonly DbSet<T?> _dbSet;
+
+		public BaseCommandRepository(FilmsDbContext context)
 		{
-			throw new NotImplementedException();
+			_context = context;
+			_dbSet = context.Set<T?>();
 		}
 
-		public Task DeleteAsync(T entity)
+		public async Task CreateAsync(T? entity)
 		{
-			throw new NotImplementedException();
+			await _dbSet.AddAsync(entity);
 		}
 
-		public Task UpdateAsync(T entity)
+		public void Delete(T? entity)
 		{
-			throw new NotImplementedException();
+			_dbSet.Remove(entity);
+		}
+
+		public void Update(T? entity)
+		{
+			_dbSet.Attach(entity);
+			_dbSet.Entry(entity).State = EntityState.Modified;
+		}
+
+		public async Task SaveAsync()
+		{
+			await _context.SaveChangesAsync();
 		}
 	}
 }

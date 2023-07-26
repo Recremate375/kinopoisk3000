@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Films.Domain.Models
+namespace Films.Domain.DTO
 {
-	public class Type
+	public class CreateTypeDTO
 	{
-		public int TypeId { get; set; }
 		public string? TypeName { get; set; }
 	}
 }

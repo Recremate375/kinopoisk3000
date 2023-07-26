@@ -1,28 +1,14 @@
-﻿using Films.Application.Repositories.Commands;
-using Films.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Films.Domain.Models;
+using Films.Infrastructure.Context;
+using Films.Application.Repositories.Commands;
 
 namespace Films.Infrastructure.Repositories.Commands
 {
 	public class FilmCommandRepository : BaseCommandRepository<Film>, IFilmCommandRepository
 	{
-		public Task<Film> GetFilmByNameAsync(string filmName)
+		public FilmCommandRepository(FilmsDbContext context) : base(context)
 		{
-			throw new NotImplementedException();
 		}
 
-		public Task<IReadOnlyList<Film>> GetFilmsByProductinoYear(DateTime filmDate)
-		{
-			throw new NotImplementedException();
-		}
-
-		public Task<IReadOnlyList<Film>> GetFilmsByTypeAsync(Domain.Models.Type filmtype)
-		{
-			throw new NotImplementedException();
-		}
 	}
 }

@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Films.Infrastructure.Repositories.Queries
+namespace Films.Domain.DTO
 {
-	public class TypeCommandRepository
+	public class BaseDTOEntity
 	{
+		public int Id { get; set; }
 	}
 }

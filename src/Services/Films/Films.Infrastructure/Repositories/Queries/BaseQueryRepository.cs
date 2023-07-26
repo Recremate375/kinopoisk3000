@@ -1,22 +1,34 @@
-﻿using Films.Application.Repositories.Queryes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using Films.Application.Repositories.Queryes;
+using Films.Domain.DTO;
+using Films.Domain.Models;
+using Films.Infrastructure.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace Films.Infrastructure.Repositories.Queries
 {
-	public class BaseQueryRepository<T> : IBaseQueryRepository<T> where T : class
+	public class BaseQueryRepository<T> : IBaseQueryRepository<T> where T : BaseEntity
 	{
-		public Task<IReadOnlyList<T>> GetAllAsync()
+		protected readonly FilmsDbContext _context;
+		private readonly DbSet<T> _dbSet;
+		private readonly IMapper _mapper;
+
+		public BaseQueryRepository(FilmsDbContext context, IMapper mapper)
 		{
-			throw new NotImplementedException();
+			_context = context;
+			_dbSet = context.Set<T?>();
+			_mapper = mapper;
 		}
 
-		public Task<T> GetByIdAsync(int id)
+		public async Task<List<TDto>> GetAllAsync<TDto>() where TDto : BaseDTOEntity
 		{
-			throw new NotImplementedException();
+			return await _dbSet.AsNoTracking().ProjectTo<TDto>(_mapper.ConfigurationProvider).ToListAsync();
+		}
+
+		public async Task<T?> GetByIdAsync(int id)
+		{
+			return await _dbSet.AsNoTracking().FirstOrDefaultAsync(entity => entity.Id == id);
 		}
 	}
 }
