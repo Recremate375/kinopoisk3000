@@ -8,7 +8,9 @@ namespace Rating.Infrastructure.Context.Configurations
 	{
 		public void Configure(EntityTypeBuilder<Film> builder)
 		{
-			builder.HasIndex(f => f.FilmName).IsUnique();
+			builder.HasIndex(film => film.FilmName).IsUnique();
+			builder.HasMany(film => film.ratings).WithOne(rating => rating.RatingFilm)
+				.HasForeignKey(rating => rating.FilmId).IsRequired();
 		}
 	}
 }

@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Rating.Domain.Models;
-using Rating.Infrastructure.Context.Configurations;
+using System.Reflection;
 
 namespace Rating.Infrastructure.Context
 {
@@ -17,9 +17,9 @@ namespace Rating.Infrastructure.Context
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
-			modelBuilder.ApplyConfiguration(new UserConfiguration()).ApplyConfiguration(new FilmConfiguration());
-
 			base.OnModelCreating(modelBuilder);
+
+			modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 		}
 	}
 }

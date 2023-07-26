@@ -33,7 +33,7 @@ namespace Rating.Infrastructure.Repositories
 
 		public async Task<T?> GetByIdAsync(int id)
 		{
-			return await _dbSet.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
+			return await _dbSet.FirstOrDefaultAsync(x => x.Id == id);
 		}
 
 		public async Task SaveAsync()

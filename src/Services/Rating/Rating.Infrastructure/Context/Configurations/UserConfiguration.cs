@@ -8,7 +8,9 @@ namespace Rating.Infrastructure.Context.Configurations
 	{
 		public void Configure(EntityTypeBuilder<User> builder)
 		{
-			builder.HasIndex(u => u.Login).IsUnique();
+			builder.HasIndex(user => user.Login).IsUnique();
+			builder.HasMany(user => user.ratings).WithOne(rating => rating.RatingUser)
+				.HasForeignKey(rating => rating.UserId).IsRequired();
 		}
 	}
 }
