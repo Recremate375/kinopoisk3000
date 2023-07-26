@@ -9,7 +9,7 @@ namespace Rating.Application.IServices
 
 		Task<Domain.Models.Rating> CreateRatingAsync(CreateRatingDTO ratingDTO);
 
-		Task<float> GetRatingByFilmName(string filmName);
+		Task<float> GetRatingByFilmNameAsync(string filmName);
 
 		Task UpdateRating(RatingDTO ratingDTO);
 

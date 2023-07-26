@@ -31,9 +31,10 @@ namespace Rating.WebApi.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetRatingByFilmName(string filmName)
+        [Route("{filmName:alpha}")]
+        public async Task<IActionResult> GetRatingByFilmName([FromRoute] string filmName)
         {
-            return Ok(await _ratingService.GetRatingByFilmName(filmName));
+            return Ok(await _ratingService.GetRatingByFilmNameAsync(filmName));
         }
 
         [HttpDelete]

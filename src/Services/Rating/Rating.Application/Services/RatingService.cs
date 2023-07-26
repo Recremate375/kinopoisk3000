@@ -59,7 +59,7 @@ namespace Rating.Application.Services
 			return ratingDtos;
 		}
 
-		public async Task<float> GetRatingByFilmName(string filmName)
+		public async Task<float> GetRatingByFilmNameAsync(string filmName)
 		{
 			int ratingSum = await _ratingRepository.GetSumRatingForFilmNameAsync(filmName);
 			int count = await _ratingRepository.GetCountOfRatedUsers(filmName);
