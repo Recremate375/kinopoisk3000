@@ -8,6 +8,10 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
 COPY ["src/Services/Rating/Rating.WebApi/Rating.WebApi.csproj", "src/Services/Rating/Rating.WebApi/"]
+COPY ["src/Services/Rating/Rating.Application/Rating.Application.csproj", "src/Services/Rating/Rating.Application/"]
+COPY ["src/Services/Rating/Rating.Domain/Rating.Domain.csproj", "src/Services/Rating/Rating.Domain"]
+COPY ["src/Services/Rating/Rating.Infrastructure/Rating.Infrastructure.csproj", "src/Services/Rating/Rating.Infrasctructure"]
+COPY ["src/Services/Rating/Rating.Tests/Rating.Tests.csproj", "src/Services/Rating/Rating.Tests"]
 RUN dotnet restore "src/Services/Rating/Rating.WebApi/Rating.WebApi.csproj"
 COPY . .
 WORKDIR "/src/src/Services/Rating/Rating.WebApi"
