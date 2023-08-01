@@ -29,11 +29,8 @@ namespace Films.Application.Features.Films.Commands.CreateFilm
 			await _filmCommandRepository.CreateAsync(film);
 			await _filmCommandRepository.SaveAsync();
 
-			var filmToBroker = new FilmDtoForBroker
-			{
-				Id = film.Id,
-				FilmName = film.FilmName
-			};
+			var filmToBroker = _mapper.Map<FilmDtoForBroker>(film);
+			filmToBroker.TypeOfBrokerOperation = "Create";
 
 			await _publishEndpoint.Publish(filmToBroker);
 

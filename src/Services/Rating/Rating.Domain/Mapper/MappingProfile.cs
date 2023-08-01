@@ -10,6 +10,7 @@ namespace Rating.Domain.Mapper
 		{
 			CreateMap<Domain.Models.Rating, RatingDTO>().ReverseMap();
 			CreateMap<Film, CreateFilmDTO>().ReverseMap();
+			CreateMap<FilmToBrokerDTO, Film>().ReverseMap();
 		}
 	}
 }

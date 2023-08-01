@@ -7,7 +7,6 @@ using Films.Application.Features.Films.Queries.GetFilmByName;
 using Films.Application.Features.Films.Queries.GetFilmsByProductionYear;
 using Films.Application.Features.Films.Queries.GetFilmsByType;
 using Films.Domain.DTO;
-using MassTransit;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,12 +17,10 @@ namespace Films.WebApi.Controllers
 	public class FilmsController : ControllerBase
 	{
 		private readonly ISender _mediator;
-		private readonly IPublishEndpoint _publishEndpoint;
 
-		public FilmsController(ISender mediator, IPublishEndpoint publishEndpoint)
+		public FilmsController(ISender mediator)
 		{
 			_mediator = mediator;
-			_publishEndpoint = publishEndpoint;
 		}
 
 		[HttpGet]

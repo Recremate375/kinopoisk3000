@@ -13,6 +13,7 @@ namespace Films.Domain.Mapper
 			CreateMap<Film, CreateFilmDTO>().ReverseMap();
 			CreateMap<FilmType, CreateTypeDTO>().ReverseMap();
 			CreateMap<Film, UpdateFilmDTO>().ReverseMap();
+			CreateMap<Film, FilmDtoForBroker>().ReverseMap();
 		}
 	}
 }

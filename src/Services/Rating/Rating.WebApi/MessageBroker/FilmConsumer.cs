@@ -1,13 +1,12 @@
 ﻿using AutoMapper;
 using MassTransit;
-using Newtonsoft.Json;
 using Rating.Application.IRepositories;
 using Rating.Domain.DTOs;
 using Rating.Domain.Models;
 
 namespace Rating.WebApi.MessageBroker
 {
-	public class FilmConsumer : IConsumer<CreateFilmDTO>
+	public class FilmConsumer : IConsumer<FilmToBrokerDTO>
 	{
 		private readonly IFilmRepository _filmRepository;
 		private readonly IMapper _mapper;
@@ -18,14 +17,26 @@ namespace Rating.WebApi.MessageBroker
 			_mapper = mapper;
 		}
 
-		public async Task Consume(ConsumeContext<CreateFilmDTO> context)
+		public async Task Consume(ConsumeContext<FilmToBrokerDTO> context)
 		{
-			var jsonMessage = JsonConvert.SerializeObject(context.Message);
-			var createFilmDto = JsonConvert.DeserializeObject<CreateFilmDTO>(jsonMessage);
-			var film = _mapper.Map<Film>(createFilmDto);
+			var filmBrokerDto = context.Message;
+			var film = _mapper.Map<Film>(filmBrokerDto);
 
-			await _filmRepository.CreateAsync(film);
-			await _filmRepository.SaveAsync();
+			switch (filmBrokerDto.StateOfOperation)
+			{
+				case "Create":
+					await _filmRepository.CreateAsync(film);
+					await _filmRepository.SaveAsync();
+					break;
+				case "Update":
+					_filmRepository.Update(film);
+					await _filmRepository.SaveAsync();
+					break;
+				case "Delete":
+					_filmRepository.Delete(film);
+					await _filmRepository.SaveAsync();
+					break;
+			}
 		}
 	}
 }
