@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Rating.Application.IServices;
 using Rating.Domain.DTOs;
 
@@ -9,48 +8,48 @@ namespace Rating.WebApi.Controllers
 	[ApiController]
 	public class RatingController : ControllerBase
 	{
-        private readonly IRatingService _ratingService;
+		private readonly IRatingService _ratingService;
 
-        public RatingController(IRatingService ratingService)
-        {
-            _ratingService = ratingService;
-        }
+		public RatingController(IRatingService ratingService)
+		{
+			_ratingService = ratingService;
+		}
 
-        [HttpGet]
-        public async Task<IActionResult> GetAllRatingsAsync()
-        {
-            return Ok(await _ratingService.GetAllRatingsAsync());
-        }
+		[HttpGet]
+		public async Task<IActionResult> GetAllRatingsAsync()
+		{
+			return Ok(await _ratingService.GetAllRatingsAsync());
+		}
 
-        [HttpPost]
-        public async Task<IActionResult> CreateRatingAsync([FromBody]CreateRatingDTO ratingDTO)
-        {
-            var rating = await _ratingService.CreateRatingAsync(ratingDTO);
+		[HttpPost]
+		public async Task<IActionResult> CreateRatingAsync([FromBody] CreateRatingDTO ratingDTO)
+		{
+			var rating = await _ratingService.CreateRatingAsync(ratingDTO);
 
-            return Created(nameof(GetRatingByFilmName), rating.RatingFilm.FilmName);
-        }
+			return Created(nameof(GetRatingByFilmName), rating.RatingFilm.FilmName);
+		}
 
-        [HttpGet]
-        [Route("{filmName:alpha}")]
-        public async Task<IActionResult> GetRatingByFilmName([FromRoute] string filmName)
-        {
-            return Ok(await _ratingService.GetRatingByFilmNameAsync(filmName));
-        }
+		[HttpGet]
+		[Route("{filmName:alpha}")]
+		public async Task<IActionResult> GetRatingByFilmName([FromRoute] string filmName)
+		{
+			return Ok(await _ratingService.GetRatingByFilmNameAsync(filmName));
+		}
 
-        [HttpDelete]
-        public async Task<IActionResult> DeleteRating(int id)
-        {
-            await _ratingService.DeleteRating(id);
+		[HttpDelete]
+		public async Task<IActionResult> DeleteRating(int id)
+		{
+			await _ratingService.DeleteRating(id);
 
-            return NoContent();
-        }
+			return NoContent();
+		}
 
-        [HttpPut]
-        public async Task<IActionResult> UpdateRating(RatingDTO ratingDTO)
-        {
-            await _ratingService.UpdateRating(ratingDTO);
+		[HttpPut]
+		public async Task<IActionResult> UpdateRating(RatingDTO ratingDTO)
+		{
+			await _ratingService.UpdateRating(ratingDTO);
 
-            return NoContent();
-        }
-    }
+			return NoContent();
+		}
+	}
 }

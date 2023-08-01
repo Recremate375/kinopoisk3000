@@ -2,8 +2,8 @@
 
 namespace Films.Application.Features.Types.Commands.DeleteType
 {
-    public class DeleteTypeCommand : IRequest
-    {
-        public int Id { get; set; }
-    }
+	public class DeleteTypeCommand : IRequest
+	{
+		public int Id { get; set; }
+	}
 }

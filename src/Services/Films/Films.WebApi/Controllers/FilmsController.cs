@@ -6,8 +6,8 @@ using Films.Application.Features.Films.Queries.GetFilmById;
 using Films.Application.Features.Films.Queries.GetFilmByName;
 using Films.Application.Features.Films.Queries.GetFilmsByProductionYear;
 using Films.Application.Features.Films.Queries.GetFilmsByType;
-using Films.Application.Features.Types.Queries.GetTypeByName;
 using Films.Domain.DTO;
+using MassTransit;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,11 +18,13 @@ namespace Films.WebApi.Controllers
 	public class FilmsController : ControllerBase
 	{
 		private readonly ISender _mediator;
+		private readonly IPublishEndpoint _publishEndpoint;
 
-        public FilmsController(ISender mediator)
-        {
-            _mediator = mediator;
-        }
+		public FilmsController(ISender mediator, IPublishEndpoint publishEndpoint)
+		{
+			_mediator = mediator;
+			_publishEndpoint = publishEndpoint;
+		}
 
 		[HttpGet]
 		public async Task<IActionResult> GetAllFilms()
@@ -91,5 +93,5 @@ namespace Films.WebApi.Controllers
 
 			return Ok();
 		}
-    }
+	}
 }

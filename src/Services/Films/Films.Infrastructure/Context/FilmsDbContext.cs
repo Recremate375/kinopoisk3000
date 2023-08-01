@@ -1,5 +1,4 @@
 ﻿using Films.Domain.Models;
-using Films.Infrastructure.Context.Configurations;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 

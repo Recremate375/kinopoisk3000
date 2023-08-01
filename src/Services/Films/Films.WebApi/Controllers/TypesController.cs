@@ -30,7 +30,7 @@ namespace Films.WebApi.Controllers
 
 		[HttpGet]
 		[Route("{typeId:int}")]
-		public async Task<IActionResult> GetTypeByIdAsync([FromRoute]int typeId)
+		public async Task<IActionResult> GetTypeByIdAsync([FromRoute] int typeId)
 		{
 			var type = await _mediator.Send(new GetTypeByIdQuery() { Id = typeId });
 

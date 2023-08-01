@@ -7,7 +7,7 @@ namespace Identity.Infrastructure.Repositories
 {
 	public class RoleRepository : BaseRepository<Role>, IRoleRepository
 	{
-		public RoleRepository(IdentityDbContext context) : base(context) 
+		public RoleRepository(IdentityDbContext context) : base(context)
 		{ }
 
 		public async Task<Role?> GetRoleByNameAsync(string roleName)

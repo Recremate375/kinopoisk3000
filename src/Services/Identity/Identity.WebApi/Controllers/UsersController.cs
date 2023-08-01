@@ -21,9 +21,9 @@ namespace Identity.Domain.Controllers
 		public async Task<IActionResult> Login([FromBody] LoginUserDTO loginUserDTO)
 		{
 			var token = await _usersService.GetAuthenticationTokenAsync(loginUserDTO);
-			
+
 			return Ok(new { Token = token });
-		} 
+		}
 
 		[HttpPost]
 		[ProducesResponseType(StatusCodes.Status201Created)]

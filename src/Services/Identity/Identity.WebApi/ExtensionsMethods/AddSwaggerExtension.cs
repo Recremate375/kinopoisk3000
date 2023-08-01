@@ -1,5 +1,4 @@
 ﻿using Microsoft.OpenApi.Models;
-using System.Runtime.CompilerServices;
 
 namespace Identity.Domain.ExtensionsMethods
 {

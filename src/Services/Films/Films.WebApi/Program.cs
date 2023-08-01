@@ -6,6 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddMyMediatr();
 builder.Services.AddRepositories();
 builder.Services.AddCustomAutoMapper();
+builder.Services.ConfigureMassTransit();
 builder.Services.AddDbContext(builder.Configuration);
 
 builder.Services.AddControllers();

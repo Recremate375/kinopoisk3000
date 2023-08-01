@@ -8,11 +8,11 @@ using System.Text;
 
 namespace Identity.Application.Features
 {
-    public class GenerateJWTService : IGenerateJWTService
+	public class GenerateJWTService : IGenerateJWTService
 	{
 		private readonly AuthOptions options;
 
-		public GenerateJWTService(IOptions<AuthOptions> authOptions) 
+		public GenerateJWTService(IOptions<AuthOptions> authOptions)
 		{
 			options = authOptions.Value;
 		}

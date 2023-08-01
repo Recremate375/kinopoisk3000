@@ -1,8 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Identity.Application.IServices;
 using Identity.Domain.DTO;
-using Identity.Domain.Models;
 using Microsoft.AspNetCore.Authorization;
-using Identity.Application.IServices;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Identity.Domain.Controllers
 {
@@ -22,7 +21,7 @@ namespace Identity.Domain.Controllers
 		public async Task<IActionResult> GetAllRoles()
 		{
 			var roles = await _rolesService.GetAllRolesAsync();
-			
+
 			return Ok(roles);
 		}
 

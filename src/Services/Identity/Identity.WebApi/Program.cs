@@ -1,6 +1,6 @@
-using Identity.Domain.Middlewares;
-using Identity.Domain.ExtensionsMethods;
 using FluentValidation.AspNetCore;
+using Identity.Domain.ExtensionsMethods;
+using Identity.Domain.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 

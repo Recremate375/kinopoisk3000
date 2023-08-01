@@ -1,6 +1,4 @@
-﻿using Rating.Domain.Models;
-
-namespace Rating.Application.IRepositories
+﻿namespace Rating.Application.IRepositories
 {
 	public interface IRatingRepository : IBaseRepository<Domain.Models.Rating>
 	{

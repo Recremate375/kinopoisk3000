@@ -6,24 +6,24 @@ using MediatR;
 
 namespace Films.Application.Features.Types.Queries.GetTypeById
 {
-    public class GetTypeByIdQueryHandler : IRequestHandler<GetTypeByIdQuery, FilmTypeDTO>
-    {
-        private readonly ITypeQueryRepository _typeQueryRepository;
-        private readonly IMapper _mapper;
+	public class GetTypeByIdQueryHandler : IRequestHandler<GetTypeByIdQuery, FilmTypeDTO>
+	{
+		private readonly ITypeQueryRepository _typeQueryRepository;
+		private readonly IMapper _mapper;
 
-        public GetTypeByIdQueryHandler(ITypeQueryRepository typeQueryRepository, IMapper mapper)
-        {
-            _typeQueryRepository = typeQueryRepository;
-            _mapper = mapper;
-        }
+		public GetTypeByIdQueryHandler(ITypeQueryRepository typeQueryRepository, IMapper mapper)
+		{
+			_typeQueryRepository = typeQueryRepository;
+			_mapper = mapper;
+		}
 
-        public async Task<FilmTypeDTO> Handle(GetTypeByIdQuery request, CancellationToken cancellationToken)
-        {
-            var type = await _typeQueryRepository.GetByIdAsync(request.Id) 
-                ?? throw new NotFoundException($"Type not Found!");
-            var typeDTO = _mapper.Map<FilmTypeDTO>(type);
+		public async Task<FilmTypeDTO> Handle(GetTypeByIdQuery request, CancellationToken cancellationToken)
+		{
+			var type = await _typeQueryRepository.GetByIdAsync(request.Id)
+				?? throw new NotFoundException($"Type not Found!");
+			var typeDTO = _mapper.Map<FilmTypeDTO>(type);
 
-            return typeDTO;
-        }
-    }
+			return typeDTO;
+		}
+	}
 }

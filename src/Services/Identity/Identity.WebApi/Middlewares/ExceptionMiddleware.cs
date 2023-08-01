@@ -1,6 +1,6 @@
-﻿using System.Net;
-using Identity.Domain.Exceptions;
+﻿using Identity.Domain.Exceptions;
 using Newtonsoft.Json;
+using System.Net;
 
 namespace Identity.Domain.Middlewares
 {
@@ -35,11 +35,11 @@ namespace Identity.Domain.Middlewares
 				BadRequestException => HttpStatusCode.BadRequest,
 
 				NotFoundException => HttpStatusCode.NotFound,
-				
+
 				UnauthorizedException => HttpStatusCode.Unauthorized,
-				
+
 				ForbiddenException => HttpStatusCode.Forbidden,
-				
+
 				_ => HttpStatusCode.InternalServerError
 			};
 

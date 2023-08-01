@@ -1,6 +1,6 @@
-﻿using Films.Domain.Models;
+﻿using Films.Application.Repositories.Commands;
+using Films.Domain.Models;
 using Films.Infrastructure.Context;
-using Films.Application.Repositories.Commands;
 
 namespace Films.Infrastructure.Repositories.Commands
 {

@@ -1,5 +1,4 @@
 ﻿using Rating.Domain.DTOs;
-using Rating.Domain.Models;
 
 namespace Rating.Application.IServices
 {

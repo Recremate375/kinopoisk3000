@@ -13,16 +13,16 @@ namespace Rating.Application.Services
 		private readonly IUserRepository _userRepository;
 		private readonly IMapper _mapper;
 
-        public RatingService(IRatingRepository ratingRepository, 
+		public RatingService(IRatingRepository ratingRepository,
 			IFilmRepository filmRepository, IUserRepository userRepository, IMapper mapper)
-        {
+		{
 			_ratingRepository = ratingRepository;
 			_filmRepository = filmRepository;
 			_userRepository = userRepository;
 			_mapper = mapper;
-        }
+		}
 
-        public async Task<Domain.Models.Rating> CreateRatingAsync(CreateRatingDTO ratingDTO)
+		public async Task<Domain.Models.Rating> CreateRatingAsync(CreateRatingDTO ratingDTO)
 		{
 			var film = await _filmRepository.GetFilmByNameAsync(ratingDTO.FilmName)
 				?? throw new NotFoundException("Not Found this filmName!");

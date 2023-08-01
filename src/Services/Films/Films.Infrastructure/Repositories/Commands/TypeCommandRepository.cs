@@ -1,5 +1,5 @@
-﻿using Films.Infrastructure.Context;
-using Films.Application.Repositories.Commands;
+﻿using Films.Application.Repositories.Commands;
+using Films.Infrastructure.Context;
 
 namespace Films.Infrastructure.Repositories.Commands
 {

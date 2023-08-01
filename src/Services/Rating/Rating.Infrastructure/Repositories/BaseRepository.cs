@@ -10,13 +10,13 @@ namespace Rating.Infrastructure.Repositories
 		protected readonly RatingDbContext _context;
 		private readonly DbSet<T> _dbSet;
 
-        public BaseRepository(RatingDbContext context)
-        {
+		public BaseRepository(RatingDbContext context)
+		{
 			_context = context;
 			_dbSet = context.Set<T>();
-        }
+		}
 
-        public async Task CreateAsync(T entity)
+		public async Task CreateAsync(T entity)
 		{
 			await _dbSet.AddAsync(entity);
 		}
