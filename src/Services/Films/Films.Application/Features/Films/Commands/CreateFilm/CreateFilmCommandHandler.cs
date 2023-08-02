@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Films.Application.Repositories.Commands;
 using Films.Domain.DTO;
+using Films.Domain.Enums;
 using Films.Domain.Models;
 using MassTransit;
 using MediatR;
@@ -30,7 +31,7 @@ namespace Films.Application.Features.Films.Commands.CreateFilm
 			await _filmCommandRepository.SaveAsync();
 
 			var filmToBroker = _mapper.Map<FilmDtoForBroker>(film);
-			filmToBroker.TypeOfBrokerOperation = "Create";
+			filmToBroker.TypeOfBrokerOperation = BrokerOperationsEnum.Create;
 
 			await _publishEndpoint.Publish(filmToBroker);
 

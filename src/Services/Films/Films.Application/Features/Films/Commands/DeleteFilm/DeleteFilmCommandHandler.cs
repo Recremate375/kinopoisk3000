@@ -35,7 +35,7 @@ namespace Films.Application.Features.Films.Commands.DeleteFilm
 			await _filmCommandRepository.SaveAsync();
 
 			var filmToBroker = _mapper.Map<FilmDtoForBroker>(film);
-			filmToBroker.TypeOfBrokerOperation = "Delete";
+			filmToBroker.TypeOfBrokerOperation = Domain.Enums.BrokerOperationsEnum.Delete;
 			
 			await _publishEndpoint.Publish(filmToBroker);
 		}

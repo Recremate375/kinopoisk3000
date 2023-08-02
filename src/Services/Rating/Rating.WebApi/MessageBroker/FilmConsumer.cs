@@ -3,6 +3,7 @@ using MassTransit;
 using Rating.Application.IRepositories;
 using Rating.Domain.DTOs;
 using Rating.Domain.Models;
+using Rating.Domain.Enums;
 
 namespace Rating.WebApi.MessageBroker
 {
@@ -24,15 +25,15 @@ namespace Rating.WebApi.MessageBroker
 
 			switch (filmBrokerDto.StateOfOperation)
 			{
-				case "Create":
+				case BrokerOpertaionsEnum.Create:
 					await _filmRepository.CreateAsync(film);
 					await _filmRepository.SaveAsync();
 					break;
-				case "Update":
+				case BrokerOpertaionsEnum.Update:
 					_filmRepository.Update(film);
 					await _filmRepository.SaveAsync();
 					break;
-				case "Delete":
+				case BrokerOpertaionsEnum.Delete:
 					_filmRepository.Delete(film);
 					await _filmRepository.SaveAsync();
 					break;

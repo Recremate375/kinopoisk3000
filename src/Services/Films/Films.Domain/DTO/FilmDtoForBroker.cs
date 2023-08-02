@@ -1,8 +1,10 @@
-﻿namespace Films.Domain.DTO
+﻿using Films.Domain.Enums;
+
+namespace Films.Domain.DTO
 {
 	public class FilmDtoForBroker : BaseDTOEntity
 	{
 		public string FilmName { get; set; }
-		public string? TypeOfBrokerOperation { get; set; }
+		public BrokerOperationsEnum? TypeOfBrokerOperation { get; set; }
 	}
 }

@@ -39,7 +39,7 @@ namespace Films.Application.Features.Films.Commands.UpdateFilm
 			await _filmCommandRepository.SaveAsync();
 
 			var filmToBroker = _mapper.Map<FilmDtoForBroker>(film);
-			filmToBroker.TypeOfBrokerOperation = "Update";
+			filmToBroker.TypeOfBrokerOperation = Domain.Enums.BrokerOperationsEnum.Update;
 
 			await _publishEndpoint.Publish(filmToBroker);
 		}
