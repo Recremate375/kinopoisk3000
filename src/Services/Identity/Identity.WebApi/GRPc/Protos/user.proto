@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+option csharp_namespace = "Identity.WebApi.GRPc.Protos";
+
+service UserService
+{
+	
+}
+
+message UserRequest
+{ 
+
+}
+
+message UserResponse
+{
+
+}
+
+enum Operation
+{
+	Create = 0;
+	Update = 1;
+	Delete = 2;
+}
