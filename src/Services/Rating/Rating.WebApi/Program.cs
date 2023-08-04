@@ -6,6 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddMSSqlDbContext(builder.Configuration);
 builder.Services.AddRepositories();
 builder.Services.AddServices();
+builder.Services.ConfigureMassTransit(builder.Configuration);
 builder.Services.ConfigreFluentValidation();
 builder.Services.ConfigureAutoMapper();
 

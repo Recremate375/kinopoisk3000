@@ -6,7 +6,6 @@ using Films.Application.Features.Films.Queries.GetFilmById;
 using Films.Application.Features.Films.Queries.GetFilmByName;
 using Films.Application.Features.Films.Queries.GetFilmsByProductionYear;
 using Films.Application.Features.Films.Queries.GetFilmsByType;
-using Films.Application.Features.Types.Queries.GetTypeByName;
 using Films.Domain.DTO;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -19,10 +18,10 @@ namespace Films.WebApi.Controllers
 	{
 		private readonly ISender _mediator;
 
-        public FilmsController(ISender mediator)
-        {
-            _mediator = mediator;
-        }
+		public FilmsController(ISender mediator)
+		{
+			_mediator = mediator;
+		}
 
 		[HttpGet]
 		public async Task<IActionResult> GetAllFilms()
@@ -91,5 +90,5 @@ namespace Films.WebApi.Controllers
 
 			return Ok();
 		}
-    }
+	}
 }

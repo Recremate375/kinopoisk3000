@@ -2,8 +2,8 @@
 
 namespace Identity.Application.IServices
 {
-    public interface IGenerateJWTService
-    {
-        string GenerateJWT(User user);
-    }
+	public interface IGenerateJWTService
+	{
+		string GenerateJWT(User user);
+	}
 }

@@ -2,11 +2,11 @@
 
 namespace Films.Application.Features.Types.Commands.CreateType
 {
-    public class CreateTypeCommandValidator : AbstractValidator<CreateTypeCommand>
-    {
-        public CreateTypeCommandValidator()
-        {
-            RuleFor(x => x.Type.TypeName).NotEmpty();
-        }
-    }
+	public class CreateTypeCommandValidator : AbstractValidator<CreateTypeCommand>
+	{
+		public CreateTypeCommandValidator()
+		{
+			RuleFor(x => x.Type.TypeName).NotEmpty();
+		}
+	}
 }

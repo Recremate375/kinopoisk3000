@@ -3,8 +3,8 @@ using MediatR;
 
 namespace Films.Application.Features.Films.Queries.GetFilmByName
 {
-    public class GetFilmByNameQuery : IRequest<FilmDTO>
-    {
-        public string FilmName { get; set; }
-    }
+	public class GetFilmByNameQuery : IRequest<FilmDTO>
+	{
+		public string FilmName { get; set; }
+	}
 }

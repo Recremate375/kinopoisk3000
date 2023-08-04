@@ -9,7 +9,7 @@ namespace Identity.Application.IServices
 		Task<Domain.Models.Role?> CreateRoleAsync(RoleDTO roleDTO);
 
 		Task UpdateRoleAsync(RoleDTO roleDTO);
-		
+
 		Task DeleteRoleAsync(int id);
 
 		Task<RoleDTO?> GetRoleByIdAsync(int id);

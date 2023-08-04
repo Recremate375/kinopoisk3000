@@ -7,7 +7,7 @@ namespace Identity.Infrastructure.Repositories
 {
 	public class UserRepository : BaseRepository<User>, IUserRepository
 	{
-		public UserRepository(IdentityDbContext context) : base(context) 
+		public UserRepository(IdentityDbContext context) : base(context)
 		{ }
 
 		public async Task<User?> GetUserByEmailAsync(string email)

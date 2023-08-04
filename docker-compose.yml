@@ -1,22 +1,71 @@
 version: '3.4'
 
 services:
+  films_db:
+    image: "mcr.microsoft.com/mssql/server:2022-latest"
+    container_name: films_db
+    ports:
+        - "1433:1433"
+    environment:
+        - ACCEPT_EULA=y
+        - SA_PASSWORD=Strong_Password0
+
+  ratings_db:
+    image: "mcr.microsoft.com/mssql/server:2022-latest"
+    container_name: ratings_db
+    ports:
+        - "1434:1434"
+    environment:
+        - ACCEPT_EULA=y
+        - SA_PASSWORD=Strong_Password0
+
+  identity_db:
+    image: "mcr.microsoft.com/mssql/server:2022-latest"
+    container_name: identity_db
+    ports:
+        - "1435:1435"
+    environment:
+        - ACCEPT_EULA=y
+        - SA_PASSWORD=Strong_Password0
+
+  rabbitmq:
+    image: rabbitmq:3.12-management
+    container_name: 'rabbitmq'
+    ports:
+        - 5672:5672
+        - 15672:15672
+
   films.application:
     image: ${DOCKER_REGISTRY-}filmsapplication
+    container_name: films
+    depends_on:
+        - films_db
+    ports:
+        - "666:80" 
     build:
       context: .
       dockerfile: src/Services/Films/Films.WebApi/Dockerfile
 
   identity.application:
     image: ${DOCKER_REGISTRY-}identityapplication
+    container_name: identity
+    depends_on:
+        - identity_db
+    ports:
+        - "667:80"
     build:
       context: .
       dockerfile: src/Services/Identity/Identity.WebApi/Dockerfile
-
+    environment:
+        - ASPNETCORE_ENVIRONMENT=Development
 
   rating.application:
     image: ${DOCKER_REGISTRY-}ratingapplication
+    container_name: rating
+    depends_on:
+        - rating_db
+    ports:
+        - "668:80"
     build:
       context: .
       dockerfile: src/Services/Rating/Rating.Application/Dockerfile
-
