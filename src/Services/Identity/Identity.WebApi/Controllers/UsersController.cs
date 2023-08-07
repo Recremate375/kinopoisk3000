@@ -1,4 +1,5 @@
-﻿using Identity.Application.IServices;
+﻿using Grpc.Net.Client;
+using Identity.Application.IServices;
 using Identity.Domain.DTO;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -10,7 +11,7 @@ namespace Identity.Domain.Controllers
 	public class UsersController : ControllerBase
 	{
 		private readonly IUsersService _usersService;
-
+		private readonly GrpcChannel _channel;
 		public UsersController(IUsersService usersService)
 		{
 			_usersService = usersService;

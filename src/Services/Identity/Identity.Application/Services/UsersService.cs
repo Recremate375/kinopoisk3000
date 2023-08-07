@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Grpc.Net.Client;
 using Identity.Application.IServices;
 using Identity.Application.Repositories;
 using Identity.Domain.DTO;
@@ -13,6 +14,7 @@ namespace Identity.Application.Features
         private readonly IRoleRepository _roleRepository;
         private readonly IMapper _mapper;
         private readonly IGenerateJWTService _generateJWTClass;
+        private readonly GrpcChannel _channel;
 
         public UsersService(IUserRepository userRepository, IRoleRepository roleRepository,
             IMapper mapper, IGenerateJWTService generateJWTClass)
@@ -21,6 +23,7 @@ namespace Identity.Application.Features
             _roleRepository = roleRepository;
             _mapper = mapper;
             _generateJWTClass = generateJWTClass;
+            //_channel = Grpc
         }
 
         public async Task<string> GetAuthenticationTokenAsync(LoginUserDTO loginUserDTO)
@@ -43,7 +46,10 @@ namespace Identity.Application.Features
             await _userRepository.CreateAsync(user);
             await _userRepository.SaveAsync();
 
-            return user;
+            //var client = new UserProtoService
+
+
+			return user;
         }
 
         public async Task<List<UserDTO>> GetAllUsersAsync()
