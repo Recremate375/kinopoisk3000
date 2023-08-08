@@ -29,12 +29,12 @@ namespace Identity.Application.Features
 
         private async Task SendDataToRatingServiceAsync(User user, Operation operation)
         {
-			_client.SendUserOperation(new Request
+			var message = await _client.SendUserOperationAsync(new Request
 			{
 				UserOperation = new GrpcUserOperationModel
 				{
 					Operation = operation,
-					ThisRequest =
+					ThisRequest = new()
 					{
 						Id = user.Id,
 						Login = user.Login

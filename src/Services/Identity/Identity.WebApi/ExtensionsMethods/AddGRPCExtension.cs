@@ -10,7 +10,6 @@ namespace Identity.WebApi.ExtensionsMethods
 			{
 				options.Address = new Uri(configuration["GrpcConnection"]);
 			});
-			services.AddScoped<UserProtoService.UserProtoServiceClient>();
 
 			return services;
 		}

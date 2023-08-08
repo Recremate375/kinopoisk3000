@@ -33,5 +33,5 @@ message Request
 
 message Response
 {
-
+	string message = 1;
 }

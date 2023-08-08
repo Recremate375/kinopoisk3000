@@ -8,36 +8,43 @@ namespace Rating.WebApi.GRPc
 {
 	public class UserService : UserProtoService.UserProtoServiceBase
 	{
-		private readonly IFilmRepository _filmRepository;
+		private readonly IUserRepository _userRepository;
 		private readonly IMapper _mapper;
 
-		public UserService(IFilmRepository filmRepository,
+		public UserService(IUserRepository userRepository,
 			IMapper mapper)
 		{
-			_filmRepository = filmRepository;
+			_userRepository = userRepository;
 			_mapper = mapper;
 		}
 
 		public override async Task<Response> SendUserOperation(Request request, ServerCallContext context)
 		{
-			var film = _mapper.Map<Film>(request.UserOperation.Request);
+			var user = new User() 
+			{
+				//Id = request.UserOperation.Request.Id,
+				Login = request.UserOperation.Request.Login
+			};
 
 			switch (request.UserOperation.Operation)
 			{
 				case Operation.Create:
-					await _filmRepository.CreateAsync(film);
+					await _userRepository.CreateAsync(user);
 
 					break;
 				case Operation.Update:
-					_filmRepository.Update(film);
+					_userRepository.Update(user);
 
 					break;
 				case Operation.Delete:
-					_filmRepository.Delete(film);
+					_userRepository.Delete(user);
 
 					break;
 			}
-			await _filmRepository.SaveAsync();
+			await _userRepository.SaveAsync();
+
+			var response = new Response() { Message = "The operation was a success" };
+
 
 			return new Response();
 		}

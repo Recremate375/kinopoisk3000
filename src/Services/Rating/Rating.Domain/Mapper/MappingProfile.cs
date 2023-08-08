@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Rating.Domain.DTOs;
+using Rating.Domain.Models;
 
 namespace Rating.Domain.Mapper
 {
