@@ -20,7 +20,6 @@ builder.Services.AddSwaggerWithAuthentication();
 var app = builder.Build();
 
 app.UseCustomException();
-app.UseGrpc();
 
 app.UseAuthentication();
 app.UseAuthorization();

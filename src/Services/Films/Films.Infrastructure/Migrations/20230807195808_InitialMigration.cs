@@ -15,41 +15,56 @@ namespace Films.Infrastructure.Migrations
                 name: "Types",
                 columns: table => new
                 {
-                    FilmTypeId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    TypeName = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    TypeName = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Types", x => x.FilmTypeId);
+                    table.PrimaryKey("PK_Types", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Films",
                 columns: table => new
                 {
-                    FilmId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    FilmName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FilmName = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    TypeFilmTypeId = table.Column<int>(type: "int", nullable: true),
+                    FilmTypeId = table.Column<int>(type: "int", nullable: false),
                     TotalMinutes = table.Column<int>(type: "int", nullable: false),
                     ProductionYear = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Films", x => x.FilmId);
+                    table.PrimaryKey("PK_Films", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Films_Types_TypeFilmTypeId",
-                        column: x => x.TypeFilmTypeId,
+                        name: "FK_Films_Types_FilmTypeId",
+                        column: x => x.FilmTypeId,
                         principalTable: "Types",
-                        principalColumn: "FilmTypeId");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Films_TypeFilmTypeId",
+                name: "IX_Films_FilmName",
                 table: "Films",
-                column: "TypeFilmTypeId");
+                column: "FilmName",
+                unique: true,
+                filter: "[FilmName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Films_FilmTypeId",
+                table: "Films",
+                column: "FilmTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Types_TypeName",
+                table: "Types",
+                column: "TypeName",
+                unique: true,
+                filter: "[TypeName] IS NOT NULL");
         }
 
         /// <inheritdoc />

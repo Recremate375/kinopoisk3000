@@ -11,15 +11,15 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Identity.Infrastructure.Migrations
 {
     [DbContext(typeof(IdentityDbContext))]
-    [Migration("20230720174322_Migration2")]
-    partial class Migration2
+    [Migration("20230807201601_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.5")
+                .HasAnnotation("ProductVersion", "7.0.9")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -67,18 +67,18 @@ namespace Identity.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Surname")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("UserRoleId")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("Email")
                         .IsUnique();
 
-                    b.HasIndex("UserRoleId");
+                    b.HasIndex("RoleId");
 
                     b.ToTable("Users");
                 });
@@ -86,12 +86,17 @@ namespace Identity.Infrastructure.Migrations
             modelBuilder.Entity("Identity.Domain.Models.User", b =>
                 {
                     b.HasOne("Identity.Domain.Models.Role", "UserRole")
-                        .WithMany()
-                        .HasForeignKey("UserRoleId")
+                        .WithMany("Users")
+                        .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("UserRole");
+                });
+
+            modelBuilder.Entity("Identity.Domain.Models.Role", b =>
+                {
+                    b.Navigation("Users");
                 });
 #pragma warning restore 612, 618
         }

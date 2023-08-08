@@ -3,6 +3,6 @@
 	public class Film : BaseEntity
 	{
 		public string FilmName { get; set; }
-		public ICollection<Rating> ratings { get; } = new List<Rating>();
+		public List<Rating> ratings { get; } = new List<Rating>();
 	}
 }

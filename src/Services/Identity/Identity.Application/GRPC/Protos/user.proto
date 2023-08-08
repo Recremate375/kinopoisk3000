@@ -22,7 +22,7 @@ enum Operation
 
 message GrpcUserOperationModel
 {
-	UserRequest request = 1;
+	UserRequest thisRequest = 1;
 	Operation operation = 2;
 }
 

@@ -5,6 +5,7 @@ using Identity.Application.Repositories;
 using Identity.Domain.DTO;
 using Identity.Domain.Exceptions;
 using Identity.Domain.Models;
+using Identity.WebApi.Protos;
 
 namespace Identity.Application.Features
 {
@@ -15,6 +16,7 @@ namespace Identity.Application.Features
         private readonly IMapper _mapper;
         private readonly IGenerateJWTService _generateJWTClass;
         private readonly GrpcChannel _channel;
+        private readonly UserProtoService.UserProtoServiceClient _client;
 
         public UsersService(IUserRepository userRepository, IRoleRepository roleRepository,
             IMapper mapper, IGenerateJWTService generateJWTClass)
@@ -23,8 +25,25 @@ namespace Identity.Application.Features
             _roleRepository = roleRepository;
             _mapper = mapper;
             _generateJWTClass = generateJWTClass;
-            //_channel = Grpc
+            _channel = GrpcChannel.ForAddress("https://localhost:7242");
+            _client = new UserProtoService.UserProtoServiceClient(_channel);
         }
+
+        private async Task SendDataToRatingServiceAsync(User user, Operation operation)
+        {
+			_client.SendUserOperation(new Request
+			{
+				UserOperation = new GrpcUserOperationModel
+				{
+					Operation = operation,
+					ThisRequest =
+					{
+						Id = user.Id,
+						Login = user.Login
+					},
+				}
+			});
+		}
 
         public async Task<string> GetAuthenticationTokenAsync(LoginUserDTO loginUserDTO)
         {
@@ -36,18 +55,17 @@ namespace Identity.Application.Features
             return token;
         }
 
-        public async Task<User> CreateUserAsync(CreateUserDTO createUserDTO)
+        public async Task<User?> CreateUserAsync(CreateUserDTO createUserDTO)
         {
             var user = _mapper.Map<User>(createUserDTO);
             var role = await _roleRepository.GetRoleByNameAsync("user");
 
-            user.UserRole = role;
+            user.RoleId = role.Id;
 
             await _userRepository.CreateAsync(user);
             await _userRepository.SaveAsync();
 
-            //var client = new UserProtoService
-
+			await SendDataToRatingServiceAsync(user, Operation.Create);
 
 			return user;
         }
@@ -67,7 +85,9 @@ namespace Identity.Application.Features
 
             _userRepository.Update(user);
             await _userRepository.SaveAsync();
-        }
+
+			await SendDataToRatingServiceAsync(user, Operation.Update);
+		}
 
         public async Task DeleteUserAsync(int id)
         {
@@ -76,7 +96,9 @@ namespace Identity.Application.Features
 
             _userRepository.Delete(user);
             await _userRepository.SaveAsync();
-        }
+
+			await SendDataToRatingServiceAsync(user, Operation.Delete);
+		}
 
 		public async Task<UserDTO?> GetUserByIdAsync(int id)
 		{

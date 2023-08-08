@@ -1,6 +1,4 @@
-﻿using Grpc.Core;
-
-namespace Identity.WebApi.ExtensionsMethods
+﻿namespace Identity.WebApi.ExtensionsMethods
 {
 	public static class AddGRPCExtension
 	{
@@ -10,18 +8,5 @@ namespace Identity.WebApi.ExtensionsMethods
 
 			return services;
 		}
-
-		public static IApplicationBuilder UseGrpc(this IApplicationBuilder app)
-		{
-			app.UseGrpcWeb();
-
-			//app.UseEndpoints(endpoints =>
-			//{
-			//	endpoints.MapGrpcService<UserService>().EnableGrpcWeb();
-			//});
-
-			return app;
-		}
-
 	}
 }

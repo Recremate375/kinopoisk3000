@@ -18,5 +18,5 @@ services:
     image: ${DOCKER_REGISTRY-}ratingapplication
     build:
       context: .
-      dockerfile: src/Services/Rating/Rating.Application/Dockerfile
+      dockerfile: src/Services/Rating/Rating.WebApi/Dockerfile
 

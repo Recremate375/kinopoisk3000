@@ -12,8 +12,8 @@ namespace Rating.Infrastructure.Context
 
 		public RatingDbContext(DbContextOptions options) : base(options)
         {
-            
-        }
+			
+		}
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
