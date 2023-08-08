@@ -15,18 +15,16 @@ namespace Identity.Application.Features
         private readonly IRoleRepository _roleRepository;
         private readonly IMapper _mapper;
         private readonly IGenerateJWTService _generateJWTClass;
-        private readonly GrpcChannel _channel;
         private readonly UserProtoService.UserProtoServiceClient _client;
 
         public UsersService(IUserRepository userRepository, IRoleRepository roleRepository,
-            IMapper mapper, IGenerateJWTService generateJWTClass)
+            IMapper mapper, IGenerateJWTService generateJWTClass, UserProtoService.UserProtoServiceClient client)
         {
             _userRepository = userRepository;
             _roleRepository = roleRepository;
             _mapper = mapper;
             _generateJWTClass = generateJWTClass;
-            _channel = GrpcChannel.ForAddress("https://localhost:7242");
-            _client = new UserProtoService.UserProtoServiceClient(_channel);
+            _client = client;
         }
 
         private async Task SendDataToRatingServiceAsync(User user, Operation operation)
