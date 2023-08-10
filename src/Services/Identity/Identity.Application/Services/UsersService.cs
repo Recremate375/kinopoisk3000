@@ -27,22 +27,6 @@ namespace Identity.Application.Features
             _client = client;
         }
 
-        private async Task SendDataToRatingServiceAsync(User user, Operation operation)
-        {
-			var message = await _client.SendUserOperationAsync(new Request
-			{
-				UserOperation = new GrpcUserOperationModel
-				{
-					Operation = operation,
-					ThisRequest = new()
-					{
-						Id = user.Id,
-						Login = user.Login
-					},
-				}
-			});
-		}
-
         public async Task<string> GetAuthenticationTokenAsync(LoginUserDTO loginUserDTO)
         {
             var user = await _userRepository.GetUserByEmailAsync(loginUserDTO.Email)
@@ -56,7 +40,8 @@ namespace Identity.Application.Features
         public async Task<User?> CreateUserAsync(CreateUserDTO createUserDTO)
         {
             var user = _mapper.Map<User>(createUserDTO);
-            var role = await _roleRepository.GetRoleByNameAsync("user");
+            var role = await _roleRepository.GetRoleByNameAsync("user") 
+                ?? throw new NotFoundException("Role is not found.");
 
             user.RoleId = role.Id;
 
@@ -79,7 +64,7 @@ namespace Identity.Application.Features
         public async Task UpdateUserAsync(UserDTO userDTO)
         {
             var user = await _userRepository.GetUserByEmailAsync(userDTO.Email) 
-                ?? throw new NotFoundException($"User with email {userDTO.Email} is not fount.");
+                ?? throw new NotFoundException($"User with email {userDTO.Email} is not found.");
 
             _userRepository.Update(user);
             await _userRepository.SaveAsync();
@@ -105,6 +90,22 @@ namespace Identity.Application.Features
             var userDTO = _mapper.Map<UserDTO>(user);
 
             return userDTO;
+		}
+
+		private async Task SendDataToRatingServiceAsync(User user, Operation operation)
+		{
+			await _client.SendUserOperationAsync(new Request
+			{
+				UserOperation = new GrpcUserOperationModel
+				{
+					Operation = operation,
+					ThisRequest = new()
+					{
+						Id = user.Id,
+						Login = user.Login
+					},
+				}
+			});
 		}
 	}
 }

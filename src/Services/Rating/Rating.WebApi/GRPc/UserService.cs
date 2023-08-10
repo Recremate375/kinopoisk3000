@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Grpc.Core;
+﻿using Grpc.Core;
 using Rating.Application.IRepositories;
 using Rating.Domain.Models;
 using Rating.WebApi.Protos;
@@ -9,20 +8,16 @@ namespace Rating.WebApi.GRPc
 	public class UserService : UserProtoService.UserProtoServiceBase
 	{
 		private readonly IUserRepository _userRepository;
-		private readonly IMapper _mapper;
 
-		public UserService(IUserRepository userRepository,
-			IMapper mapper)
+		public UserService(IUserRepository userRepository)
 		{
 			_userRepository = userRepository;
-			_mapper = mapper;
 		}
 
 		public override async Task<Response> SendUserOperation(Request request, ServerCallContext context)
 		{
 			var user = new User() 
 			{
-				//Id = request.UserOperation.Request.Id,
 				Login = request.UserOperation.Request.Login
 			};
 
@@ -45,8 +40,7 @@ namespace Rating.WebApi.GRPc
 
 			var response = new Response() { Message = "The operation was a success" };
 
-
-			return new Response();
+			return response;
 		}
 	}
 }
