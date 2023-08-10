@@ -42,22 +42,23 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Films.Application", "src\Se
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Films.WebApi", "src\Services\Films\Films.WebApi\Films.WebApi.csproj", "{4922849C-914D-428C-BED6-4019A2A45FB9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity.WebApi", "src\Services\Identity\Identity.WebApi\Identity.WebApi.csproj", "{2E0A182A-6778-4854-B5B1-005374D18BCD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Identity.WebApi", "src\Services\Identity\Identity.WebApi\Identity.WebApi.csproj", "{2E0A182A-6778-4854-B5B1-005374D18BCD}"
 	ProjectSection(ProjectDependencies) = postProject
 		{3D20367B-6B65-4A5E-A47F-E03E00DDE5A6} = {3D20367B-6B65-4A5E-A47F-E03E00DDE5A6}
 		{4A36C50C-0D34-499B-93DB-9D6D4D69A6D1} = {4A36C50C-0D34-499B-93DB-9D6D4D69A6D1}
 		{EEFC6667-B465-4915-A95C-AFEEDBEA8499} = {EEFC6667-B465-4915-A95C-AFEEDBEA8499}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity.Application", "src\Services\Identity\Identity.Application\Identity.Application.csproj", "{3D20367B-6B65-4A5E-A47F-E03E00DDE5A6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Identity.Application", "src\Services\Identity\Identity.Application\Identity.Application.csproj", "{3D20367B-6B65-4A5E-A47F-E03E00DDE5A6}"
+EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{4AA19244-0A43-4750-9C3C-C2BECA1A12E2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rating.Application", "src\Services\Rating\Rating.Application\Rating.Application.csproj", "{216A2567-E4D9-4D9A-AF9D-0F6A12E98802}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rating.Application", "src\Services\Rating\Rating.Application\Rating.Application.csproj", "{216A2567-E4D9-4D9A-AF9D-0F6A12E98802}"
 	ProjectSection(ProjectDependencies) = postProject
 		{ED3BCB7E-1CC5-4D3C-A559-1298C61CBC19} = {ED3BCB7E-1CC5-4D3C-A559-1298C61CBC19}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rating.WebApi", "src\Services\Rating\Rating.WebApi\Rating.WebApi.csproj", "{AA7FAB14-F58F-45A0-B64F-27DBE2D6DCF6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rating.WebApi", "src\Services\Rating\Rating.WebApi\Rating.WebApi.csproj", "{AA7FAB14-F58F-45A0-B64F-27DBE2D6DCF6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -101,10 +102,6 @@ Global
 		{B5569F8C-FF65-446A-AE2C-FFD8752ACB2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B5569F8C-FF65-446A-AE2C-FFD8752ACB2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B5569F8C-FF65-446A-AE2C-FFD8752ACB2B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4AA19244-0A43-4750-9C3C-C2BECA1A12E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4AA19244-0A43-4750-9C3C-C2BECA1A12E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4AA19244-0A43-4750-9C3C-C2BECA1A12E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4AA19244-0A43-4750-9C3C-C2BECA1A12E2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{12E5C65A-DD9B-4627-A264-516EAAEA5592}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{12E5C65A-DD9B-4627-A264-516EAAEA5592}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{12E5C65A-DD9B-4627-A264-516EAAEA5592}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -121,6 +118,10 @@ Global
 		{3D20367B-6B65-4A5E-A47F-E03E00DDE5A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3D20367B-6B65-4A5E-A47F-E03E00DDE5A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3D20367B-6B65-4A5E-A47F-E03E00DDE5A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4AA19244-0A43-4750-9C3C-C2BECA1A12E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4AA19244-0A43-4750-9C3C-C2BECA1A12E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4AA19244-0A43-4750-9C3C-C2BECA1A12E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4AA19244-0A43-4750-9C3C-C2BECA1A12E2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{216A2567-E4D9-4D9A-AF9D-0F6A12E98802}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{216A2567-E4D9-4D9A-AF9D-0F6A12E98802}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{216A2567-E4D9-4D9A-AF9D-0F6A12E98802}.Release|Any CPU.ActiveCfg = Release|Any CPU

@@ -9,6 +9,7 @@ builder.Services.AddServices();
 builder.Services.ConfigureMassTransit(builder.Configuration);
 builder.Services.ConfigreFluentValidation();
 builder.Services.ConfigureAutoMapper();
+builder.Services.ConfigureGRPC();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -17,6 +18,7 @@ builder.Services.AddSwaggerGen();
 var app = builder.Build();
 
 app.UseCustomException();
+app.UseGRPC();
 
 if (app.Environment.IsDevelopment())
 {
