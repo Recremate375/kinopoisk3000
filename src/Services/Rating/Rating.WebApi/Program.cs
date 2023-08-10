@@ -9,6 +9,7 @@ builder.Services.AddServices();
 builder.Services.ConfigureMassTransit(builder.Configuration);
 builder.Services.ConfigreFluentValidation();
 builder.Services.ConfigureAutoMapper();
+builder.Services.ConfigureRedis(builder.Configuration);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
