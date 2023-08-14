@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.SignalR;
 
 namespace Films.Application.Hubs
 {
-	public class NotificationHub : Hub
+	public class NotificationHub : Hub<INotificationHub>
 	{
 	}
 }

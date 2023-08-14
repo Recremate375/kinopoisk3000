@@ -16,12 +16,12 @@ namespace Films.Application.Features.Films.Commands.CreateFilm
 		private readonly IFilmCommandRepository _filmCommandRepository;
 		private readonly IMapper _mapper;
 		private readonly IPublishEndpoint _publishEndpoint;
-		private readonly IHubContext<NotificationHub> _notificationHub;
+		private readonly IHubContext<NotificationHub, INotificationHub> _notificationHub;
 
 		public CreateFilmCommandHandler(IFilmCommandRepository filmCommandRepository,
 			IMapper mapper,
 			IPublishEndpoint publishEndpoint,
-			IHubContext<NotificationHub> notificationHub)
+			IHubContext<NotificationHub, INotificationHub> notificationHub)
 		{
 			_filmCommandRepository = filmCommandRepository;
 			_mapper = mapper;
@@ -41,7 +41,7 @@ namespace Films.Application.Features.Films.Commands.CreateFilm
 
 			await _publishEndpoint.Publish(filmToBroker);
 
-			await _notificationHub.Clients.All.SendAsync($"Film {film.FilmName} has been added to the site!");
+			await _notificationHub.Clients.All.SendMessage($"Film {film.FilmName} has been added to the site!");
 
 			return film;
 		}

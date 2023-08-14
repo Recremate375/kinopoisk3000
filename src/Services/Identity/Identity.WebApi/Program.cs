@@ -1,6 +1,7 @@
 using FluentValidation.AspNetCore;
 using Identity.Domain.ExtensionsMethods;
 using Identity.Domain.Middlewares;
+using Identity.WebApi.ExtensionsMethods;
 
 var builder = WebApplication.CreateBuilder(args);
 
