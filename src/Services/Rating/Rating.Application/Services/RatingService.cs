@@ -4,7 +4,6 @@ using Rating.Application.IRepositories;
 using Rating.Application.IServices;
 using Rating.Domain.DTOs;
 using Rating.Domain.Exceptions;
-using System.Text;
 
 namespace Rating.Application.Services
 {

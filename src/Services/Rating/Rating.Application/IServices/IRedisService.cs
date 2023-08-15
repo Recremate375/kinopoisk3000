@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.Caching.Distributed;
-
-namespace Rating.Application.IServices
+﻿namespace Rating.Application.IServices
 {
 	public interface IRedisService<T> where T : class
 	{

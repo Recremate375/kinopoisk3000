@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.Caching.Distributed;
 using Newtonsoft.Json;
-using Rating.Application.IRepositories;
 using Rating.Application.IServices;
 using System.Text;
 
