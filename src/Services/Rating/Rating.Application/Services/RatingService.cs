@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Newtonsoft.Json;
 using Rating.Application.IRepositories;
 using Rating.Application.IServices;
 using Rating.Domain.DTOs;
@@ -12,14 +13,18 @@ namespace Rating.Application.Services
 		private readonly IFilmRepository _filmRepository;
 		private readonly IUserRepository _userRepository;
 		private readonly IMapper _mapper;
+		private readonly IRedisService<List<Domain.Models.Rating?>> _redis;
 
 		public RatingService(IRatingRepository ratingRepository,
-			IFilmRepository filmRepository, IUserRepository userRepository, IMapper mapper)
+			IFilmRepository filmRepository, IUserRepository userRepository,
+			IMapper mapper, 
+			IRedisService<List<Domain.Models.Rating?>> redis)
 		{
 			_ratingRepository = ratingRepository;
 			_filmRepository = filmRepository;
 			_userRepository = userRepository;
 			_mapper = mapper;
+			_redis = redis;
 		}
 
 		public async Task<Domain.Models.Rating> CreateRatingAsync(CreateRatingDTO ratingDTO)
@@ -53,10 +58,24 @@ namespace Rating.Application.Services
 
 		public async Task<List<RatingDTO>> GetAllRatingsAsync()
 		{
-			var ratings = await _ratingRepository.GetAllAsync();
-			var ratingDtos = _mapper.Map<List<RatingDTO>>(ratings);
+			var serializedRatingList = await _redis.GetAsync();
 
-			return ratingDtos;
+			if(serializedRatingList == null)
+			{
+				var ratings = await _ratingRepository.GetAllAsync();
+				var ratingDtos = _mapper.Map<List<RatingDTO>>(ratings);
+
+				await _redis.SetAsync(ratings);
+
+				return ratingDtos;
+			}
+			else
+			{
+				var ratings = JsonConvert.DeserializeObject<List<Domain.Models.Rating?>>(serializedRatingList);
+				var ratingDtos = _mapper.Map<List<RatingDTO>>(ratings);
+
+				return ratingDtos;
+			}
 		}
 
 		public async Task<float> GetRatingByFilmNameAsync(string filmName)
