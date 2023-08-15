@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+option csharp_namespace = "Rating.WebApi.Protos";
+
+service UserProtoService
+{
+	rpc SendUserOperation (Request) returns (Response);
+}
+
+message UserRequest
+{ 
+	int32 id = 1;
+	string Login = 2;
+}
+
+enum Operation
+{
+	Create = 0;
+	Update = 1;
+	Delete = 2;
+}
+
+message GrpcUserOperationModel
+{
+	UserRequest request = 1;
+	Operation operation = 2;
+}
+
+message Request
+{
+	GrpcUserOperationModel userOperation = 1;
+}
+
+message Response
+{
+	string message = 1;
+}

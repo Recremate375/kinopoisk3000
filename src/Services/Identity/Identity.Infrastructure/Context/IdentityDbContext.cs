@@ -10,7 +10,9 @@ namespace Identity.Infrastructure.Context
 		public DbSet<Role> Roles { get; set; }
 
 		public IdentityDbContext(DbContextOptions options) : base(options)
-		{ }
+        {
+			
+		}
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{

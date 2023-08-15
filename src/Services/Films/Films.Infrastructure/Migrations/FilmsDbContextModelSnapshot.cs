@@ -24,17 +24,20 @@ namespace Films.Infrastructure.Migrations
 
             modelBuilder.Entity("Films.Domain.Models.Film", b =>
                 {
-                    b.Property<int>("FilmId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FilmId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FilmName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("FilmTypeId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("ProductionYear")
                         .HasColumnType("datetime2");
@@ -42,28 +45,33 @@ namespace Films.Infrastructure.Migrations
                     b.Property<int>("TotalMinutes")
                         .HasColumnType("int");
 
-                    b.Property<int?>("TypeFilmTypeId")
-                        .HasColumnType("int");
+                    b.HasKey("Id");
 
-                    b.HasKey("FilmId");
+                    b.HasIndex("FilmName")
+                        .IsUnique()
+                        .HasFilter("[FilmName] IS NOT NULL");
 
-                    b.HasIndex("TypeFilmTypeId");
+                    b.HasIndex("FilmTypeId");
 
                     b.ToTable("Films");
                 });
 
             modelBuilder.Entity("Films.Domain.Models.FilmType", b =>
                 {
-                    b.Property<int>("FilmTypeId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FilmTypeId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("TypeName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("FilmTypeId");
+                    b.HasKey("Id");
+
+                    b.HasIndex("TypeName")
+                        .IsUnique()
+                        .HasFilter("[TypeName] IS NOT NULL");
 
                     b.ToTable("Types");
                 });
@@ -71,10 +79,17 @@ namespace Films.Infrastructure.Migrations
             modelBuilder.Entity("Films.Domain.Models.Film", b =>
                 {
                     b.HasOne("Films.Domain.Models.FilmType", "Type")
-                        .WithMany()
-                        .HasForeignKey("TypeFilmTypeId");
+                        .WithMany("Films")
+                        .HasForeignKey("FilmTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Type");
+                });
+
+            modelBuilder.Entity("Films.Domain.Models.FilmType", b =>
+                {
+                    b.Navigation("Films");
                 });
 #pragma warning restore 612, 618
         }

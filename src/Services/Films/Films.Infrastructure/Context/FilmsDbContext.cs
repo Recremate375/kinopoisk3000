@@ -6,7 +6,10 @@ namespace Films.Infrastructure.Context
 {
 	public class FilmsDbContext : DbContext
 	{
-		public FilmsDbContext(DbContextOptions options) : base(options) { }
+		public FilmsDbContext(DbContextOptions options) : base(options)
+		{
+			Database.Migrate();
+		}
 
 		public DbSet<Film> Films { get; set; }
 		public DbSet<FilmType> Types { get; set; }
