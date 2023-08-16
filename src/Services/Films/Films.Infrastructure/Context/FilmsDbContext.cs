@@ -9,6 +9,7 @@ namespace Films.Infrastructure.Context
 		public FilmsDbContext(DbContextOptions options) : base(options)
 		{
 			Database.Migrate();
+			Database.EnsureCreated();
 		}
 
 		public DbSet<Film> Films { get; set; }

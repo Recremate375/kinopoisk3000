@@ -1,10 +1,13 @@
 ﻿using AutoMapper;
+using Films.Application.Hubs;
+using Films.Application.Hubs.IHubs;
 using Films.Application.Repositories.Commands;
 using Films.Domain.DTO;
 using Films.Domain.Enums;
 using Films.Domain.Models;
 using MassTransit;
 using MediatR;
+using Microsoft.AspNetCore.SignalR;
 
 namespace Films.Application.Features.Films.Commands.CreateFilm
 {
@@ -13,14 +16,17 @@ namespace Films.Application.Features.Films.Commands.CreateFilm
 		private readonly IFilmCommandRepository _filmCommandRepository;
 		private readonly IMapper _mapper;
 		private readonly IPublishEndpoint _publishEndpoint;
+		private readonly IHubContext<NotificationHub, INotificationHub> _notificationHub;
 
 		public CreateFilmCommandHandler(IFilmCommandRepository filmCommandRepository,
 			IMapper mapper,
-			IPublishEndpoint publishEndpoint)
+			IPublishEndpoint publishEndpoint,
+			IHubContext<NotificationHub, INotificationHub> notificationHub)
 		{
 			_filmCommandRepository = filmCommandRepository;
 			_mapper = mapper;
 			_publishEndpoint = publishEndpoint;
+			_notificationHub = notificationHub;
 		}
 
 		public async Task<Film> Handle(CreateFilmCommand request, CancellationToken cancellationToken)
@@ -34,6 +40,8 @@ namespace Films.Application.Features.Films.Commands.CreateFilm
 			filmToBroker.TypeOfBrokerOperation = BrokerOperationsEnum.Create;
 
 			await _publishEndpoint.Publish(filmToBroker);
+
+			await _notificationHub.Clients.All.SendMessage($"Film {film.FilmName} has been added to the site!");
 
 			return film;
 		}

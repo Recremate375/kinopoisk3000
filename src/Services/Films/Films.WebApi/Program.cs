@@ -1,3 +1,4 @@
+using Films.Application.Hubs;
 using Films.WebApi.ExtensionMethods;
 using Films.WebApi.Middleware;
 
@@ -8,6 +9,7 @@ builder.Services.AddRepositories();
 builder.Services.AddCustomAutoMapper();
 builder.Services.ConfigureMassTransit();
 builder.Services.AddDbContext(builder.Configuration);
+builder.Services.ConfigureSignalR();
 
 builder.Services.AddControllers();
 
@@ -27,6 +29,8 @@ if (app.Environment.IsDevelopment())
 app.UseCors(policy => policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
 
 app.UseHttpsRedirection();
+
+app.MapHub<NotificationHub>("/Notification");
 
 app.UseAuthorization();
 

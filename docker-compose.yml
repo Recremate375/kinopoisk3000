@@ -3,7 +3,7 @@ version: '3.4'
 services:
   films_db:
     image: "mcr.microsoft.com/mssql/server:2022-latest"
-    container_name: films_db
+    container_name: films_database
     ports:
         - "1433:1433"
     environment:
@@ -12,7 +12,7 @@ services:
 
   ratings_db:
     image: "mcr.microsoft.com/mssql/server:2022-latest"
-    container_name: ratings_db
+    container_name: ratings_database
     ports:
         - "1434:1434"
     environment:
@@ -21,7 +21,7 @@ services:
 
   identity_db:
     image: "mcr.microsoft.com/mssql/server:2022-latest"
-    container_name: identity_db
+    container_name: identity_database
     ports:
         - "1435:1435"
     environment:
@@ -63,7 +63,7 @@ services:
     image: ${DOCKER_REGISTRY-}ratingapplication
     container_name: rating
     depends_on:
-        - rating_db
+        - ratings_db
     ports:
         - "668:80"
     build:
