@@ -10,5 +10,6 @@ namespace Films.Domain.DTO
 		public FilmType? Type { get; set; }
 		public int TotalMinutes { get; set; }
 		public DateTime ProductionYear { get; set; }
+		public string? PosterName { get; set; }
 	}
 }

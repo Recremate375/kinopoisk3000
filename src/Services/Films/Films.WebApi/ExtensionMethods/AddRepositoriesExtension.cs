@@ -1,6 +1,8 @@
 ﻿using Films.Application.Repositories.Commands;
+using Films.Application.Repositories.MongoRepositories.Commands;
 using Films.Application.Repositories.Queryes;
 using Films.Infrastructure.Repositories.Commands;
+using Films.Infrastructure.Repositories.MongoRepositories.Commands;
 using Films.Infrastructure.Repositories.Queries;
 
 namespace Films.WebApi.ExtensionMethods
@@ -13,6 +15,7 @@ namespace Films.WebApi.ExtensionMethods
 			services.AddScoped<IFilmQueryRepository, FilmQueryRepository>();
 			services.AddScoped<ITypeCommandRepository, TypeCommandRepository>();
 			services.AddScoped<ITypeQueryRepository, TypeQueryRepository>();
+			services.AddScoped<IFilmMongoCommandRepository, FilmMongoCommandRepository>();
 
 			return services;
 		}

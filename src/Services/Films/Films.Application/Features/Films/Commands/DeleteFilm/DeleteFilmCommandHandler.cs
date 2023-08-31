@@ -5,6 +5,7 @@ using Films.Domain.DTO;
 using Films.Domain.Exceptions;
 using MassTransit;
 using MediatR;
+using Microsoft.Extensions.Logging;
 
 namespace Films.Application.Features.Films.Commands.DeleteFilm
 {
@@ -14,22 +15,31 @@ namespace Films.Application.Features.Films.Commands.DeleteFilm
 		private readonly IFilmQueryRepository _filmQueryRepository;
 		private readonly IPublishEndpoint _publishEndpoint;
 		private readonly IMapper _mapper;
+		private readonly ILogger<DeleteFilmCommandHandler> _logger;
 
 		public DeleteFilmCommandHandler(IFilmCommandRepository filmCommandRepository,
 			IFilmQueryRepository filmQueryRepository,
 			IMapper mapper,
-			IPublishEndpoint  publishEndpoint)
+			IPublishEndpoint  publishEndpoint,
+			ILogger<DeleteFilmCommandHandler> logger)
 		{
 			_filmCommandRepository = filmCommandRepository;
 			_filmQueryRepository = filmQueryRepository;
 			_mapper = mapper;
 			_publishEndpoint = publishEndpoint;
+			_logger = logger;
 		}
 
 		public async Task Handle(DeleteFilmCommand request, CancellationToken cancellationToken)
 		{
-			var film = await _filmQueryRepository.GetByIdAsync(request.Id)
-				?? throw new NotFoundException($"Entity with number {request.Id} not found!");
+			var film = await _filmQueryRepository.GetByIdAsync(request.Id);
+
+			if (film is null)
+			{
+				_logger.LogError($"Film with number {request.Id} not found.");
+
+				throw new NotFoundException($"Film with number {request.Id} not found!");
+			}
 
 			_filmCommandRepository.Delete(film);
 			await _filmCommandRepository.SaveAsync();
@@ -38,6 +48,8 @@ namespace Films.Application.Features.Films.Commands.DeleteFilm
 			filmToBroker.TypeOfBrokerOperation = Domain.Enums.BrokerOperationsEnum.Delete;
 			
 			await _publishEndpoint.Publish(filmToBroker);
+
+			_logger.LogInformation($"Film {film.FilmName} was successfully deleted.");
 		}
 
 	}

@@ -11,6 +11,11 @@ namespace Identity.Infrastructure.Context.Configurations
 			builder.HasIndex(u => u.RoleName).IsUnique();
 			builder.HasMany(role => role.Users).WithOne(user => user.UserRole)
 				.HasForeignKey(user => user.RoleId).IsRequired();
+			builder.HasData(new Role[]
+			{
+				new Role {Id = 1, RoleName = "admin" },
+				new Role {Id = 2, RoleName = "user" }
+			});
 		}
 	}
 }

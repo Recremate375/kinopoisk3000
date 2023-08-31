@@ -68,7 +68,7 @@ namespace Films.WebApi.Controllers
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> CreateFilmAsync([FromBody] CreateFilmDTO createFilmDTO)
+		public async Task<IActionResult> CreateFilmAsync([FromBody] CreateFilmDTO createFilmDTO, IFormFile uploadedFile)
 		{
 			await _mediator.Send(new CreateFilmCommand() { CreateFilmDTO = createFilmDTO });
 

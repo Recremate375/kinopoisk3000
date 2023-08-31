@@ -6,6 +6,7 @@ using Films.Domain.Exceptions;
 using Films.Domain.Models;
 using MassTransit;
 using MediatR;
+using Microsoft.Extensions.Logging;
 
 namespace Films.Application.Features.Films.Commands.UpdateFilm
 {
@@ -15,23 +16,32 @@ namespace Films.Application.Features.Films.Commands.UpdateFilm
 		private readonly IFilmQueryRepository _filmQueryRepository;
 		private readonly IMapper _mapper;
 		private readonly IPublishEndpoint _publishEndpoint;
+		private readonly ILogger<UpdateFilmCommandHandler> _logger;
 
 		public UpdateFilmCommandHandler(IFilmCommandRepository filmCommandRepository,
 			IFilmQueryRepository filmQueryRepository,
 			IMapper mapper,
-			IPublishEndpoint publishEndpoint)
+			IPublishEndpoint publishEndpoint,
+			ILogger<UpdateFilmCommandHandler> logger)
 		{
 			_filmCommandRepository = filmCommandRepository;
 			_filmQueryRepository = filmQueryRepository;
 			_mapper = mapper;
 			_publishEndpoint = publishEndpoint;
+			_logger = logger;
 		}
 
 		public async Task Handle(UpdateFilmCommand request,
 			CancellationToken cancellationToken)
 		{
-			var film = await _filmQueryRepository.GetByIdAsync(request.FilmId)
-				?? throw new NotFoundException($"Entity {request.UpdateFilm.FilmName} not found!");
+			var film = await _filmQueryRepository.GetByIdAsync(request.FilmId);
+
+			if (film is null)
+			{
+				_logger.LogError($"Film {request.UpdateFilm.FilmName} not found.");
+
+				throw new NotFoundException($"Film {request.UpdateFilm.FilmName} not found!");
+			}
 
 			film = _mapper.Map<Film>(request.UpdateFilm);
 
@@ -42,6 +52,8 @@ namespace Films.Application.Features.Films.Commands.UpdateFilm
 			filmToBroker.TypeOfBrokerOperation = Domain.Enums.BrokerOperationsEnum.Update;
 
 			await _publishEndpoint.Publish(filmToBroker);
+
+			_logger.LogInformation($"Film {film.FilmName} was successfully updated.");
 		}
 	}
 }

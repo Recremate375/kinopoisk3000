@@ -11,6 +11,20 @@ namespace Identity.Infrastructure.Context.Configurations
 			builder.HasIndex(u => u.Email).IsUnique();
 			builder.HasOne(user => user.UserRole).WithMany(user => user.Users)
 				.HasForeignKey(user => user.RoleId).IsRequired();
+			builder.HasData(new User[]
+			{
+				new User
+				{
+					Id = 1,
+					Email = "admin@admin.com",
+					Login = "admin",
+					Name = "admin",
+					Password = "admin",
+					Surname = "admin",
+					RoleId = 1,
+				}
+			});
+
 		}
 	}
 }

@@ -11,6 +11,7 @@ builder.Services.ConfigreFluentValidation();
 builder.Services.ConfigureAutoMapper();
 builder.Services.ConfigureRedis(builder.Configuration);
 builder.Services.ConfigureGRPC();
+builder.Services.ConfigureElastic(builder.Configuration);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

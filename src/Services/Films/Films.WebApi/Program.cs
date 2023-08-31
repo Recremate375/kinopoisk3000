@@ -1,8 +1,11 @@
 using Films.Application.Hubs;
 using Films.WebApi.ExtensionMethods;
 using Films.WebApi.Middleware;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Host.UseSerilog();
 
 builder.Services.AddMyMediatr();
 builder.Services.AddRepositories();
@@ -10,6 +13,7 @@ builder.Services.AddCustomAutoMapper();
 builder.Services.ConfigureMassTransit();
 builder.Services.AddDbContext(builder.Configuration);
 builder.Services.ConfigureSignalR();
+builder.Services.ConfigureElastic(builder.Configuration);
 
 builder.Services.AddControllers();
 

@@ -12,6 +12,7 @@ builder.Services.AddJwtAuthentication(builder.Configuration);
 builder.Services.AddMyFluentValidation();
 builder.Services.AddServices();
 builder.Services.ConfigureGRPC(builder.Configuration);
+builder.Services.ConfigureElastic(builder.Configuration);
 
 builder.Services.AddControllers().AddFluentValidation();
 builder.Services.AddEndpointsApiExplorer();

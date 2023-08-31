@@ -2,6 +2,7 @@
 using Films.Application.Repositories.Commands;
 using Films.Domain.Models;
 using MediatR;
+using Microsoft.Extensions.Logging;
 
 namespace Films.Application.Features.Types.Commands.CreateType
 {
@@ -9,11 +10,15 @@ namespace Films.Application.Features.Types.Commands.CreateType
 	{
 		private readonly ITypeCommandRepository _typeCommandRepository;
 		private readonly IMapper _mapper;
+		private readonly ILogger<CreateTypeCommandHandler> _logger;
 
-		public CreateTypeCommandHandler(ITypeCommandRepository typeCommandRepository, IMapper mapper)
+		public CreateTypeCommandHandler(ITypeCommandRepository typeCommandRepository,
+			IMapper mapper,
+			ILogger<CreateTypeCommandHandler> logger)
 		{
 			_typeCommandRepository = typeCommandRepository;
 			_mapper = mapper;
+			_logger = logger;
 		}
 
 		public async Task<int> Handle(CreateTypeCommand request, CancellationToken cancellationToken)
@@ -22,6 +27,8 @@ namespace Films.Application.Features.Types.Commands.CreateType
 
 			await _typeCommandRepository.CreateAsync(type);
 			await _typeCommandRepository.SaveAsync();
+
+			_logger.LogInformation($"FilmType was successfully created. Id: {type.Id}");
 
 			return type.Id;
 		}
